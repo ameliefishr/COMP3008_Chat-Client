@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6CE84DC7-CA87-4234-8580-F3721B5BF6A3}</ProjectGuid>
+    <ProjectGuid>{4914C8A1-458E-4B4C-8D89-0B6518158287}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <RootNamespace>ChatServer</RootNamespace>
     <AssemblyName>ChatServer</AssemblyName>
