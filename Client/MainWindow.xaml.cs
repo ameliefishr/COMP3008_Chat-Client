@@ -28,7 +28,7 @@ namespace Client
         private void BtnUser1_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.MainWindow.Hide();
-            Application.Current.MainWindow = new Window1("hi");
+            Application.Current.MainWindow = new Window1();
             Application.Current.MainWindow.Show();
         }
     }

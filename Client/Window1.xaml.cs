@@ -1,6 +1,8 @@
-﻿using System;
+﻿using InterfaceLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,13 +21,22 @@ namespace Client
     /// </summary>
     public partial class Window1 : Window
     {
-        public Window1(String test)
+        private ChatServerInterface foob;
+        public Window1()
         {
             InitializeComponent();
+
+            ChannelFactory<ChatServerInterface> foobFactory;
+            NetTcpBinding tcp = new NetTcpBinding();
+
+            string URL = "net.tcp://localhost:8100/ChatService";
+            foobFactory = new ChannelFactory<ChatServerInterface>(tcp, URL);
+            foob = foobFactory.CreateChannel();
         }
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
+            UsernameTxt.Text = "Login clicked";
         }
     }
 }
