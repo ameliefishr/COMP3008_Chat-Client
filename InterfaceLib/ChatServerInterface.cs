@@ -12,5 +12,14 @@ namespace InterfaceLib
     {
         [OperationContract]
         void login(string username);
+
+        [OperationContract]
+        void joinChatRoom(string roomName, string username);
+
+        [OperationContract]
+        void leaveChatRoom(string roomName, string username);
+
+        [OperationContract]
+        void createChatRoom(string roomName);
     }
 }

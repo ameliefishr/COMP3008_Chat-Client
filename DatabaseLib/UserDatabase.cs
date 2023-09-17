@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace DatabaseLib
 {
-    public class Database
+    public class UserDatabase
     {
         List<string> usernames;
 
-        public Database()
+        public UserDatabase()
         {
             usernames = new List<string>();
         }
@@ -27,11 +27,7 @@ namespace DatabaseLib
 
         public Boolean CheckUser(string username)
         {
-            if (usernames.Contains(username))
-            {
-                return true;
-            }
-            return false;
+            return usernames.Contains(username);
         }
     }
 }
