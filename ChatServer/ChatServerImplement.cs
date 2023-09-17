@@ -40,10 +40,20 @@ namespace ChatServer
 
         public void login(string username)
         {
-            if(db.CheckUser(username) == false)
+            try
             {
-                db.AddUser(username);
+                if (db.CheckUser(username) == false)
+                {
+                    db.AddUser(username);
+                    Console.WriteLine("User added");
+                }
+                else
+                {
+                    throw new FaultException<UsernameNotValidFault>(new UsernameNotValidFault()
+                    { ProblemType = "Username is invalid..." }, new FaultReason("Username is taken!"));
+                }
             }
+            catch (FaultException<UsernameNotValidFault> e) { Console.WriteLine(e.Message); }
         }
     }
 }

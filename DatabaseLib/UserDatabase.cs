@@ -27,7 +27,9 @@ namespace DatabaseLib
 
         public Boolean CheckUser(string username)
         {
-            return usernames.Contains(username);
+            Boolean found = false;
+            if(usernames.Contains(username)) { found = true; }
+            return found;
         }
     }
 }

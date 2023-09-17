@@ -11,6 +11,7 @@ namespace InterfaceLib
     public interface ChatServerInterface
     {
         [OperationContract]
+        [FaultContract(typeof(UsernameNotValidFault))]
         void login(string username);
 
         [OperationContract]

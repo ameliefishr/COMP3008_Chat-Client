@@ -36,7 +36,7 @@ namespace Client
 
         private void LoginBtn_Click(object sender, RoutedEventArgs e)
         {
-            UsernameTxt.Text = "Login clicked";
+            foob.login(UsernameTxt.Text);
         }
     }
 }
