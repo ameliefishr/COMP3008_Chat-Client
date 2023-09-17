@@ -5,7 +5,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ChatServer
+namespace InterfaceLib
 {
     [ServiceContract]
     public interface ChatServerInterface
