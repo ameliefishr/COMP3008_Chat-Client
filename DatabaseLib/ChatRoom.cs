@@ -8,13 +8,13 @@ namespace DatabaseLib
 {
     public class ChatRoom
     {
-        private List<User> users;
+        private List<String> users;
         private string roomName;
 
         public ChatRoom(String roomName)
         {
             this.roomName = roomName;
-            users = new List<User>();
+            users = new List<String>();
         }
 
         public string GetRoomName() 
@@ -22,19 +22,18 @@ namespace DatabaseLib
             return roomName; 
         }
 
-        public void AddToRoom(User user)
+        public void AddToRoom(String username)
         {
-            users.Add(user);
+            users.Add(username);
         }
 
-        public void RemoveFromRoom(User user)
+        public void RemoveFromRoom(String username)
         {
-            users.Remove(user);
+            users.Remove(username);
         }
 
         public Boolean CheckInRoom(String username)
         {
-            for (int i = 0; i < users.Size(); i++)
             return users.Contains(username);
         }
     }
