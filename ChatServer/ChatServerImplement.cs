@@ -46,7 +46,7 @@ namespace ChatServer
             {
                 if (db.CheckUser(username) == false)
                 {
-                    db.AddUser(username);
+                    db.AddUserByUsername(username);
                     Console.WriteLine("User added");
                     return true;
                 }
@@ -60,6 +60,11 @@ namespace ChatServer
             { Console.WriteLine(e.Message);
                 return false;
             }
+        }
+
+        public void logout(string username)
+        {
+            db.RemoveUserByUsername(username);
         }
     }
 }
