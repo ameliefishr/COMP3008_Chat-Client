@@ -12,7 +12,7 @@ namespace InterfaceLib
     {
         [OperationContract]
         [FaultContract(typeof(UsernameNotValidFault))]
-        void login(string username);
+        bool login(string username);
 
         [OperationContract]
         void joinChatRoom(string roomName, string username);

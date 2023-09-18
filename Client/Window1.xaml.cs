@@ -32,11 +32,22 @@ namespace Client
             string URL = "net.tcp://localhost:8100/ChatService";
             foobFactory = new ChannelFactory<ChatServerInterface>(tcp, URL);
             foob = foobFactory.CreateChannel();
+      
         }
 
-        private void LoginBtn_Click(object sender, RoutedEventArgs e)
+        private void LoginBtn_Click(object sender, RoutedEventArgs e) 
         {
-            foob.login(UsernameTxt.Text);
+            if (foob.login(UsernameTxt.Text))
+            { 
+                Window2 window2 = new Window2(foob);
+                window2.Show();
+
+             }
+            else
+            {
+                MessageBox.Show("Username is not valid: Login Error");
+            }
+
         }
     }
 }

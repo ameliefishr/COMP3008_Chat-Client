@@ -7,13 +7,11 @@
         mc:Ignorable="d"
         Title="Window2" Height="450" Width="800">
     <Grid>
-        <!-- Chat Rooms Header -->
-        <StackPanel Orientation="Horizontal" Margin="10,10,10,0">
-            <TextBlock Text="Chat Rooms" FontWeight="Bold" FontSize="18"/>
-            <Button Content="Refresh" Margin="10,0,0,385" Click="RefreshButton_Click"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
+            <TextBlock Text="Chat Rooms" FontWeight="Bold" FontSize="18" Width="100" Height="50" Margin="0,0,10,0"/>
+            <Button Content="Refresh" Width="100" Height="35" Click="RefreshButton_Click" Margin="10,0,0,0"/>
         </StackPanel>
 
-        <!-- Chat Room List -->
         <ListView Name="chatRoomListView" Margin="10,50,10,70">
             <ListView.View>
                 <GridView>
@@ -29,7 +27,6 @@
             </ListView.View>
         </ListView>
 
-        <!-- Create Chat Room Section -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10">
             <TextBox x:Name="createChatRoomTextBox" Width="300" Height="30" Text="Enter chat room name..." />
             <Button Content="Create Chat Room" Width="150" Height="30" Click="CreateChatRoomButton_Click"/>

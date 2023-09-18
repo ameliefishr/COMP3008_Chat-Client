@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using InterfaceLib;
 
 namespace Client
 {
@@ -19,9 +20,21 @@ namespace Client
     /// </summary>
     public partial class Window2 : Window
     {
-        public Window2()
+        private ChatServerInterface foob;
+        public Window2(ChatServerInterface foobFromWindow1)
         {
             InitializeComponent();
+            foob = foobFromWindow1;
+        }
+        private void RefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        private void JoinButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
+        private void CreateChatRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            foob.createChatRoom(createChatRoomTextBox.Text);
         }
     }
 }

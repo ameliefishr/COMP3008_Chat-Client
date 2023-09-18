@@ -18,6 +18,7 @@ namespace ChatServer
         public ChatServerImplement()
         {
             db = new UserDatabase();
+            roomList = new List<ChatRoom>();
         }
 
         public void createChatRoom(string roomName)
@@ -38,7 +39,7 @@ namespace ChatServer
             room.RemoveFromRoom(username);
         }
 
-        public void login(string username)
+        public bool login(string username)
         {
             try
             {
@@ -46,6 +47,7 @@ namespace ChatServer
                 {
                     db.AddUser(username);
                     Console.WriteLine("User added");
+                    return true;
                 }
                 else
                 {
@@ -53,7 +55,10 @@ namespace ChatServer
                     { ProblemType = "Username is invalid..." }, new FaultReason("Username is taken!"));
                 }
             }
-            catch (FaultException<UsernameNotValidFault> e) { Console.WriteLine(e.Message); }
+            catch (FaultException<UsernameNotValidFault> e)
+            { Console.WriteLine(e.Message);
+                return false;
+            }
         }
     }
 }
