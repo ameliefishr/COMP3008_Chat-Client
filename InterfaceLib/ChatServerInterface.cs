@@ -20,10 +20,10 @@ namespace InterfaceLib
         void createChatRoom(string roomName);
 
         [OperationContract]
-        void logout(User username);
+        void logout(User user);
 
         [OperationContract]
-        void setCurrentUser(User username);
+        void setCurrentUser(User user);
 
         [OperationContract]
         User getCurrentUser();

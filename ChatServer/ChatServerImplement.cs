@@ -14,7 +14,8 @@ namespace ChatServer
     {
         private UserDatabase db;
         private List<ChatRoom> roomList;
-  
+        private Dictionary<User, ChatRoom> userRoomList;
+        private User currentUser;
 
         public ChatServerImplement()
         {
@@ -28,16 +29,16 @@ namespace ChatServer
             roomList.Add(room);
         }
 
-        public void joinChatRoom(string roomName, string username)
+        public void joinChatRoom(string roomName, User user)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.AddToRoom(username);
+            room.AddToRoom(user.getUsername());
         }
 
-        public void leaveChatRoom(string roomName, string username)
+        public void leaveChatRoom(string roomName, User user)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.RemoveFromRoom(username);
+            room.RemoveFromRoom(user.getUsername());
         }
 
         public bool login(string username)
@@ -46,8 +47,10 @@ namespace ChatServer
             {
                 if (db.CheckUser(username) == false)
                 {
+                    User newUser = new User(username);
+                    currentUser = newUser;
                     db.AddUserByUsername(username);
-                    Console.WriteLine("User added");
+                    Console.WriteLine("User " + username + " added");
                     return true;
                 }
                 else
@@ -57,14 +60,21 @@ namespace ChatServer
                 }
             }
             catch (FaultException<UsernameNotValidFault> e)
-            { Console.WriteLine(e.Message);
+            {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
 
-        public void logout(string username)
+        public void logout(User user)
         {
-            db.RemoveUserByUsername(username);
+            db.RemoveUserByUsername(user.getUsername());
+            Console.WriteLine("User " + user.getUsername() + " logged out");
         }
+
+        public void setCurrentUser(User user)
+        { currentUser = user; }
+
+        public User getCurrentUser() { return currentUser; }
     }
-}
+    }
