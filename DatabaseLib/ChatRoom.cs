@@ -36,5 +36,6 @@ namespace DatabaseLib
         {
             return users.Contains(roomName);
         }
+
     }
 }

@@ -21,6 +21,9 @@ namespace InterfaceLib
         void leaveChatRoom(string roomName, string username);
 
         [OperationContract]
-        void createChatRoom(string roomName);
+        bool createChatRoom(string roomName);
+
+        [OperationContract]
+        List<string> GetChatRooms();
     }
 }

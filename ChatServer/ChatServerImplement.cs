@@ -22,10 +22,30 @@ namespace ChatServer
             roomList = new List<ChatRoom>();
         }
 
-        public void createChatRoom(string roomName)
+        public bool createChatRoom(string roomName)
         {
-            ChatRoom room = new ChatRoom(roomName);
-            roomList.Add(room);
+            try
+            {
+                ChatRoom room = new ChatRoom(roomName);
+                foreach (ChatRoom cRoom in roomList)
+                {
+                    if (cRoom.GetRoomName().Equals(roomName))
+                    {
+                        throw new FaultException<ChatRoomAlreadyExistsFault>(new ChatRoomAlreadyExistsFault()
+                        { ProblemType = "Chat room name is taken" }, new FaultReason("Chat room name is taken"));
+                    }
+                    
+                }
+                roomList.Add(room);
+                return true;
+            }
+            catch (FaultException<ChatRoomAlreadyExistsFault> e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+
         }
 
         public void joinChatRoom(string roomName, string username)
@@ -46,8 +66,8 @@ namespace ChatServer
             {
                 if (db.CheckUser(username) == false)
                 {
-                    db.AddUser(username);
-                    Console.WriteLine("User added");
+                    db.AddUserByUsername(username);
+                    Console.WriteLine("User added: "+ username);
                     return true;
                 }
                 else
@@ -60,6 +80,10 @@ namespace ChatServer
             { Console.WriteLine(e.Message);
                 return false;
             }
+        }
+        public List<string> GetChatRooms()
+        {
+            return roomList.Select(room => room.GetRoomName()).ToList();
         }
     }
 }
