@@ -8,27 +8,56 @@ namespace DatabaseLib
 {
     public class UserDatabase
     {
-        List<string> usernames;
+        List<User> users;
 
         public UserDatabase()
         {
-            usernames = new List<string>();
+            users = new List<User>();
         }
 
-        public void AddUser(string username)
+        public void AddUser(User user)
         {
-            usernames.Add(username);
+            users.Add(user);
         }
 
-        public void RemoveUser(string username)
+        public void AddUserByUsername(string username)
         {
-            usernames.Remove(username);
+            User newUser = new User(username);
+            users.Add(newUser);
+
+        }
+
+        public User GetUserByUsername(string username)
+        {
+            foreach (User user in users)
+            {
+                if (user.getUsername().Equals(username))
+                {
+                    return user;
+                }
+            }
+            return null;
+        }
+
+        public void RemoveUserByUsername(string username)
+        {
+            User userToRemove = GetUserByUsername(username);
+            if (userToRemove != null)
+            {
+                users.Remove(userToRemove);
+            }
+        }
+
+        public void RemoveUser(User user)
+        {
+            users.Remove(user);
         }
 
         public Boolean CheckUser(string username)
         {
             Boolean found = false;
-            if(usernames.Contains(username)) { found = true; }
+            if(users.Contains(GetUserByUsername(username)))
+                { found = true; }
             return found;
         }
     }

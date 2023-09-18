@@ -14,6 +14,7 @@ namespace ChatServer
     {
         private UserDatabase db;
         private List<ChatRoom> roomList;
+  
 
         public ChatServerImplement()
         {
