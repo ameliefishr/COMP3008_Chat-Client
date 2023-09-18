@@ -14,8 +14,6 @@ namespace ChatServer
     {
         private UserDatabase db;
         private List<ChatRoom> roomList;
-        private User currentUser;
-        private Dictionary <User, ChatRoom> userRoomList;
   
 
         public ChatServerImplement()
@@ -30,19 +28,16 @@ namespace ChatServer
             roomList.Add(room);
         }
 
-        public void joinChatRoom(string roomName, User user)
+        public void joinChatRoom(string roomName, string username)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.AddToRoom(user.getUsername());
-            userRoomList.Add(user, room);
-
+            room.AddToRoom(username);
         }
 
-        public void leaveChatRoom(string roomName, User user)
+        public void leaveChatRoom(string roomName, string username)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.RemoveFromRoom(user.getUsername());
-            userRoomList.Remove(user);
+            room.RemoveFromRoom(username);
         }
 
         public bool login(string username)
@@ -51,10 +46,8 @@ namespace ChatServer
             {
                 if (db.CheckUser(username) == false)
                 {
-                    User newUser = new User(username);
                     db.AddUserByUsername(username);
-                    setCurrentUser(newUser);
-                    Console.WriteLine("User " + username + " added");
+                    Console.WriteLine("User added");
                     return true;
                 }
                 else
@@ -69,20 +62,9 @@ namespace ChatServer
             }
         }
 
-        public void logout(User user)
+        public void logout(string username)
         {
-            db.RemoveUserByUsername(user.getUsername());
-            Console.WriteLine("User " + user.getUsername() + " logged out");
-        }
-
-        public void setCurrentUser(User user)
-        {
-            currentUser = user;
-        }
-
-        public User getCurrentUser()
-        {
-            return currentUser;
+            db.RemoveUserByUsername(username);
         }
     }
 }
