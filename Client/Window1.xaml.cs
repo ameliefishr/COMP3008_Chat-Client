@@ -41,7 +41,6 @@ namespace Client
             { 
                 Window2 window2 = new Window2(foob);
                 window2.Show();
-
              }
             else
             {
