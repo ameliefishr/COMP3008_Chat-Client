@@ -1,9 +1,6 @@
-﻿using ChatClient.Views;
-using InterfaceLib;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -16,17 +13,23 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace ChatClient
+namespace Client
 {
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
         }
+
         private void BtnUser1_Click(object sender, RoutedEventArgs e)
         {
-            main.Content = new LoginView();
+            Window1 newWindow1 = new Window1();
+            newWindow1.Show();
+            this.Close();
         }
     }
 }

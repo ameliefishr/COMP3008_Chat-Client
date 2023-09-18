@@ -52,7 +52,7 @@
 
             </Grid>
             <Button x:Name="LoginBtn" 
-                    Content="Enter Chatroom" 
+                    Content="Login" 
                     Foreground="White"
                     Background="SlateBlue"
                     Margin="0,25"

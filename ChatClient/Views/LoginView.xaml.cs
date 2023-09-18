@@ -1,6 +1,8 @@
-﻿using System;
+﻿using InterfaceLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -17,6 +19,7 @@ namespace ChatClient.Views
 {
     public partial class LoginView : UserControl
     {
+        private ChatServerInterface foob;
         public LoginView()
         {
             InitializeComponent();
@@ -31,6 +34,7 @@ namespace ChatClient.Views
             else
             {
                 string username = UsernameTxt.Text;
+
                 MainWindow mainWindow = Application.Current.Windows.OfType<MainWindow>().FirstOrDefault();
                 if (mainWindow != null) { mainWindow.Content = new ChatView(); }
                 // ErrorTxt.Text = username;

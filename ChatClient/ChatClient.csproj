@@ -13,6 +13,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ChatServer\ChatServer.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.ServiceModel">
+      <HintPath>..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.7.2\System.ServiceModel.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
     <Resource Include="Images\icon.png" />
     <Resource Include="Images\logo.png" />
   </ItemGroup>
