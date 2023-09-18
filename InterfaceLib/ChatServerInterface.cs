@@ -1,4 +1,7 @@
 ﻿using DatabaseLib;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.ServiceModel;
 
 namespace InterfaceLib
@@ -17,7 +20,16 @@ namespace InterfaceLib
         void leaveChatRoom(string roomName, User user);
 
         [OperationContract]
-        void createChatRoom(string roomName);
+        bool createChatRoom(string roomName);
+
+        [OperationContract]
+        List<string> GetChatRooms();
+
+        [OperationContract]
+        void SendMessage(string message, string roomName, string username);
+
+        [OperationContract]
+        ChatRoom FindChatRoom(string roomName);
 
         [OperationContract]
         void logout(User user);

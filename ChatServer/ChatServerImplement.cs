@@ -14,8 +14,7 @@ namespace ChatServer
     {
         private UserDatabase db;
         private List<ChatRoom> roomList;
-        private Dictionary<User, ChatRoom> userRoomList;
-        private User currentUser;
+  
 
         public ChatServerImplement()
         {
@@ -23,22 +22,42 @@ namespace ChatServer
             roomList = new List<ChatRoom>();
         }
 
-        public void createChatRoom(string roomName)
+        public bool createChatRoom(string roomName)
         {
-            ChatRoom room = new ChatRoom(roomName);
-            roomList.Add(room);
+            try
+            {
+                ChatRoom room = new ChatRoom(roomName);
+                foreach (ChatRoom cRoom in roomList)
+                {
+                    if (cRoom.GetRoomName().Equals(roomName))
+                    {
+                        throw new FaultException<ChatRoomAlreadyExistsFault>(new ChatRoomAlreadyExistsFault()
+                        { ProblemType = "Chat room name is taken" }, new FaultReason("Chat room name is taken"));
+                    }
+                    
+                }
+                roomList.Add(room);
+                return true;
+            }
+            catch (FaultException<ChatRoomAlreadyExistsFault> e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
+
+
         }
 
-        public void joinChatRoom(string roomName, User user)
+        public void joinChatRoom(string roomName, string username)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.AddToRoom(user.getUsername());
+            room.AddToRoom(username);
         }
 
-        public void leaveChatRoom(string roomName, User user)
+        public void leaveChatRoom(string roomName, string username)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.RemoveFromRoom(user.getUsername());
+            room.RemoveFromRoom(username);
         }
 
         public bool login(string username)
@@ -47,10 +66,8 @@ namespace ChatServer
             {
                 if (db.CheckUser(username) == false)
                 {
-                    User newUser = new User(username);
-                    currentUser = newUser;
                     db.AddUserByUsername(username);
-                    Console.WriteLine("User " + username + " added");
+                    Console.WriteLine("User added: "+ username);
                     return true;
                 }
                 else
@@ -60,21 +77,39 @@ namespace ChatServer
                 }
             }
             catch (FaultException<UsernameNotValidFault> e)
-            {
-                Console.WriteLine(e.Message);
+            { Console.WriteLine(e.Message);
                 return false;
             }
         }
-
-        public void logout(User user)
+        public List<string> GetChatRooms()
         {
-            db.RemoveUserByUsername(user.getUsername());
-            Console.WriteLine("User " + user.getUsername() + " logged out");
+            return roomList.Select(room => room.GetRoomName()).ToList();
         }
 
-        public void setCurrentUser(User user)
-        { currentUser = user; }
+        public void SendMessage(string message, string roomName, string username)
+        {
+            ChatRoom tempRoom = null;
 
-        public User getCurrentUser() { return currentUser; }
+            foreach(ChatRoom room in roomList)
+            {
+                if(room.GetRoomName() == roomName)
+                {
+                    tempRoom = room;
+                }
+            }
+            tempRoom.AddMessage(username + ": " + message);
+        }
+
+        public ChatRoom FindChatRoom(string roomName)
+        {
+            foreach(ChatRoom room in roomList)
+            {
+                if (room.GetRoomName().Equals(roomName))
+                {
+                    return room;
+                }
+            }
+            return null;
+
     }
-    }
+}
