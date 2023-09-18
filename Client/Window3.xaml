@@ -1,0 +1,46 @@
+﻿<Window x:Class="Client.Window3"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Client"
+        mc:Ignorable="d"
+        Title="Window3" Height="450" Width="800">
+    <Grid>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="70*"/>
+            <ColumnDefinition Width="30*"/>
+        </Grid.ColumnDefinitions>
+
+        <TextBlock Grid.Column="0" Text="Chat Room Name" FontWeight="Bold" FontSize="18" Height="50" Margin="10,-365,10,0"/>
+
+        
+        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,10">
+            <ListView.View>
+                <GridView>
+
+                    <GridViewColumn Header="Messages" Width="500"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <TextBlock Grid.Column="1" Text="Users" FontWeight="Bold" FontSize="18" Height="50" Margin="10,-365,10,0"/>
+
+        <ListView Grid.Column="1" Name="userListView" Margin="10,50,10,10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Username" Width="150"/>
+                    <GridViewColumn Width="Auto">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button Content="Private Message" Click="PrivateMessageButton_Click"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+
+</Window>

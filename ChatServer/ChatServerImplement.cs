@@ -85,5 +85,19 @@ namespace ChatServer
         {
             return roomList.Select(room => room.GetRoomName()).ToList();
         }
+
+        public void SendMessage(string message, string roomName, string username)
+        {
+            ChatRoom tempRoom = null;
+
+            foreach(ChatRoom room in roomList)
+            {
+                if(room.GetRoomName() == username)
+                {
+                    tempRoom = room;
+                }
+            }
+            tempRoom.AddMessage(username + ": " + message);
+        }
     }
 }

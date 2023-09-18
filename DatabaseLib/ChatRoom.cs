@@ -9,6 +9,7 @@ namespace DatabaseLib
     public class ChatRoom
     {
         private List<String> users;
+        private List<String> messages;
         private string roomName;
 
         public ChatRoom(String roomName)
@@ -37,5 +38,14 @@ namespace DatabaseLib
             return users.Contains(roomName);
         }
 
+        public void AddMessage(string message)
+        {
+            messages.Add(message);
+        }
+
+        public List<String> GetMessage()
+        {
+            return messages;
+        }
     }
 }
