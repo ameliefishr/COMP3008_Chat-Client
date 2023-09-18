@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="ChatServerInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ChatRoomAlreadyExistsFault.cs" />
     <Compile Include="UsernameNotValidFault.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
