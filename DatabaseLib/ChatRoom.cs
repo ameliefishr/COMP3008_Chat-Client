@@ -41,9 +41,9 @@ namespace DatabaseLib
             users.Remove(username);
         }
 
-        public Boolean CheckInRoom(String roomName)
+        public Boolean CheckInRoom(String username)
         {
-            return users.Contains(roomName);
+            return users.Contains(username);
         }
 
         public void AddMessage(string message)
