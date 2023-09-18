@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using DatabaseLib;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace InterfaceLib
 {
@@ -15,12 +11,21 @@ namespace InterfaceLib
         bool login(string username);
 
         [OperationContract]
-        void joinChatRoom(string roomName, string username);
+        void joinChatRoom(string roomName, User user);
 
         [OperationContract]
-        void leaveChatRoom(string roomName, string username);
+        void leaveChatRoom(string roomName, User user);
 
         [OperationContract]
         void createChatRoom(string roomName);
+
+        [OperationContract]
+        void logout(User username);
+
+        [OperationContract]
+        void setCurrentUser(User username);
+
+        [OperationContract]
+        User getCurrentUser();
     }
 }

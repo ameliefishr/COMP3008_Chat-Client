@@ -14,6 +14,8 @@ namespace ChatServer
     {
         private UserDatabase db;
         private List<ChatRoom> roomList;
+        private User currentUser;
+        private Dictionary <User, ChatRoom> userRoomList;
   
 
         public ChatServerImplement()
@@ -28,16 +30,19 @@ namespace ChatServer
             roomList.Add(room);
         }
 
-        public void joinChatRoom(string roomName, string username)
+        public void joinChatRoom(string roomName, User user)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.AddToRoom(username);
+            room.AddToRoom(user.getUsername());
+            userRoomList.Add(user, room);
+
         }
 
-        public void leaveChatRoom(string roomName, string username)
+        public void leaveChatRoom(string roomName, User user)
         {
             ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
-            room.RemoveFromRoom(username);
+            room.RemoveFromRoom(user.getUsername());
+            userRoomList.Remove(user);
         }
 
         public bool login(string username)
@@ -46,8 +51,10 @@ namespace ChatServer
             {
                 if (db.CheckUser(username) == false)
                 {
-                    db.AddUser(username);
-                    Console.WriteLine("User added");
+                    User newUser = new User(username);
+                    db.AddUserByUsername(username);
+                    setCurrentUser(newUser);
+                    Console.WriteLine("User " + username + " added");
                     return true;
                 }
                 else
@@ -60,6 +67,22 @@ namespace ChatServer
             { Console.WriteLine(e.Message);
                 return false;
             }
+        }
+
+        public void logout(User user)
+        {
+            db.RemoveUserByUsername(user.getUsername());
+            Console.WriteLine("User " + user.getUsername() + " logged out");
+        }
+
+        public void setCurrentUser(User user)
+        {
+            currentUser = user;
+        }
+
+        public User getCurrentUser()
+        {
+            return currentUser;
         }
     }
 }

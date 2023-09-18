@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using InterfaceLib;
+using DatabaseLib;
 
 namespace Client
 {
@@ -35,6 +36,13 @@ namespace Client
         private void CreateChatRoomButton_Click(object sender, RoutedEventArgs e)
         {
             foob.createChatRoom(createChatRoomTextBox.Text);
+        }
+
+        private void LogoutButton_Click(object sender, RoutedEventArgs e)
+        {
+            User currentUser = foob.getCurrentUser();
+            foob.logout(currentUser);
+            Close();
         }
     }
 }
