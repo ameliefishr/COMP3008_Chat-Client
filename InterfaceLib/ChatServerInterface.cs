@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DatabaseLib;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.ServiceModel;
@@ -28,5 +29,8 @@ namespace InterfaceLib
 
         [OperationContract]
         void SendMessage(string message, string roomName, string username);
+
+        [OperationContract]
+        ChatRoom FindChatRoom(string roomName);
     }
 }

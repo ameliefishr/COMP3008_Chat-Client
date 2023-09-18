@@ -92,12 +92,24 @@ namespace ChatServer
 
             foreach(ChatRoom room in roomList)
             {
-                if(room.GetRoomName() == username)
+                if(room.GetRoomName() == roomName)
                 {
                     tempRoom = room;
                 }
             }
             tempRoom.AddMessage(username + ": " + message);
+        }
+
+        public ChatRoom FindChatRoom(string roomName)
+        {
+            foreach(ChatRoom room in roomList)
+            {
+                if (room.GetRoomName().Equals(roomName))
+                {
+                    return room;
+                }
+            }
+            return null;
         }
     }
 }

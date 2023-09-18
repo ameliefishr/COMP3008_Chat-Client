@@ -1,21 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace DatabaseLib
 {
+    [DataContract]
     public class ChatRoom
     {
+        [DataMember]
         private List<String> users;
+
+        [DataMember]
         private List<String> messages;
+
+        [DataMember]
         private string roomName;
 
         public ChatRoom(String roomName)
         {
             this.roomName = roomName;
             users = new List<String>();
+            messages = new List<String>();
         }
 
         public string GetRoomName() 

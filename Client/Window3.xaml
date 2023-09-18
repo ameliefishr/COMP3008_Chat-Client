@@ -7,25 +7,32 @@
         mc:Ignorable="d"
         Title="Window3" Height="450" Width="800">
     <Grid>
-        
+
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="70*"/>
             <ColumnDefinition Width="30*"/>
         </Grid.ColumnDefinitions>
 
-        <TextBlock Grid.Column="0" Text="Chat Room Name" FontWeight="Bold" FontSize="18" Height="50" Margin="10,-365,10,0"/>
 
-        
-        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,10">
+        <TextBlock x:Name="ChatRoomNameTextBlock" Grid.Column="0" Text="Chat Room Name" FontWeight="Bold" FontSize="18" Height="50" Margin="10,10,10,0" VerticalAlignment="Top"/>
+
+
+        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,110">
             <ListView.View>
                 <GridView>
-
-                    <GridViewColumn Header="Messages" Width="500"/>
+                    <GridViewColumn Header="Messages" Width="500" />
                 </GridView>
             </ListView.View>
         </ListView>
 
-        <TextBlock Grid.Column="1" Text="Users" FontWeight="Bold" FontSize="18" Height="50" Margin="10,-365,10,0"/>
+
+        <TextBox x:Name="MessageTextBox" Grid.Column="0" HorizontalAlignment="Stretch" Margin="10,0,106,60" TextWrapping="Wrap" Text="Enter message..." VerticalAlignment="Bottom" Height="54"/>
+
+
+        <Button x:Name="SendButton" Grid.Column="0" Content="Send" HorizontalAlignment="Right" Margin="0,0,10,60" VerticalAlignment="Bottom" Height="54" Width="106" Click="SendButton_Click"/>
+
+
+        <TextBlock x:Name="UsersTextBlock" Grid.Column="1" Text="Users" FontWeight="Bold" FontSize="18" Height="50" Margin="10,10,10,0" VerticalAlignment="Top"/>
 
         <ListView Grid.Column="1" Name="userListView" Margin="10,50,10,10">
             <ListView.View>
@@ -41,6 +48,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-    </Grid>
 
+    </Grid>
 </Window>

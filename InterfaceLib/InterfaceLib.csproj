@@ -48,5 +48,11 @@
     <Compile Include="ChatRoomAlreadyExistsFault.cs" />
     <Compile Include="UsernameNotValidFault.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DatabaseLib\DatabaseLib.csproj">
+      <Project>{ACBDBF17-5199-4C65-A37B-2E94057BDDF1}</Project>
+      <Name>DatabaseLib</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

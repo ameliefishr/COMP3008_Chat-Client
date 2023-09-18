@@ -117,6 +117,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DatabaseLib\DatabaseLib.csproj">
+      <Project>{ACBDBF17-5199-4C65-A37B-2E94057BDDF1}</Project>
+      <Name>DatabaseLib</Name>
+    </ProjectReference>
     <ProjectReference Include="..\InterfaceLib\InterfaceLib.csproj">
       <Project>{BB802043-F248-4289-8924-22F438632036}</Project>
       <Name>InterfaceLib</Name>
