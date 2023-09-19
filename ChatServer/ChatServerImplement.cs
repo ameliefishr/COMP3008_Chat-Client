@@ -14,7 +14,6 @@ namespace ChatServer
     {
         private UserDatabase db;
         private List<ChatRoom> roomList;
-  
 
         public ChatServerImplement()
         {
@@ -34,7 +33,6 @@ namespace ChatServer
                         throw new FaultException<ChatRoomAlreadyExistsFault>(new ChatRoomAlreadyExistsFault()
                         { ProblemType = "Chat room name is taken" }, new FaultReason("Chat room name is taken"));
                     }
-                    
                 }
                 roomList.Add(room);
                 return true;
@@ -44,8 +42,6 @@ namespace ChatServer
                 Console.WriteLine(e.Message);
                 return false;
             }
-
-
         }
 
         public void joinChatRoom(string roomName, string username)
