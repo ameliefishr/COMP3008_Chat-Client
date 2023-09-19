@@ -14,7 +14,7 @@ namespace ChatServer
     {
         private UserDatabase db;
         private List<ChatRoom> roomList;
-  
+
 
         public ChatServerImplement()
         {
@@ -34,7 +34,7 @@ namespace ChatServer
                         throw new FaultException<ChatRoomAlreadyExistsFault>(new ChatRoomAlreadyExistsFault()
                         { ProblemType = "Chat room name is taken" }, new FaultReason("Chat room name is taken"));
                     }
-                    
+
                 }
                 roomList.Add(room);
                 return true;
@@ -67,7 +67,7 @@ namespace ChatServer
                 if (db.CheckUser(username) == false)
                 {
                     db.AddUserByUsername(username);
-                    Console.WriteLine("User added: "+ username);
+                    Console.WriteLine("User added: " + username);
                     return true;
                 }
                 else
@@ -77,7 +77,8 @@ namespace ChatServer
                 }
             }
             catch (FaultException<UsernameNotValidFault> e)
-            { Console.WriteLine(e.Message);
+            {
+                Console.WriteLine(e.Message);
                 return false;
             }
         }
@@ -90,9 +91,9 @@ namespace ChatServer
         {
             ChatRoom tempRoom = null;
 
-            foreach(ChatRoom room in roomList)
+            foreach (ChatRoom room in roomList)
             {
-                if(room.GetRoomName() == roomName)
+                if (room.GetRoomName() == roomName)
                 {
                     tempRoom = room;
                 }
@@ -102,7 +103,7 @@ namespace ChatServer
 
         public ChatRoom FindChatRoom(string roomName)
         {
-            foreach(ChatRoom room in roomList)
+            foreach (ChatRoom room in roomList)
             {
                 if (room.GetRoomName().Equals(roomName))
                 {
@@ -111,5 +112,21 @@ namespace ChatServer
             }
             return null;
 
+        }
+
+        public void logout(User user)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void setCurrentUser(string username)
+        {
+            throw new NotImplementedException();
+        }
+
+        public User getCurrentUser()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

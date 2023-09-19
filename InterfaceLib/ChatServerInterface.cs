@@ -14,10 +14,10 @@ namespace InterfaceLib
         bool login(string username);
 
         [OperationContract]
-        void joinChatRoom(string roomName, User user);
+        void joinChatRoom(string roomName, string username);
 
         [OperationContract]
-        void leaveChatRoom(string roomName, User user);
+        void leaveChatRoom(string roomName, string username);
 
         [OperationContract]
         bool createChatRoom(string roomName);
@@ -35,7 +35,7 @@ namespace InterfaceLib
         void logout(User user);
 
         [OperationContract]
-        void setCurrentUser(User user);
+        void setCurrentUser(string username);
 
         [OperationContract]
         User getCurrentUser();
