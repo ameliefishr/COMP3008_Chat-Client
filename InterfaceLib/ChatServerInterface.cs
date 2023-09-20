@@ -23,7 +23,7 @@ namespace InterfaceLib
         bool createChatRoom(string roomName);
 
         [OperationContract]
-        List<string> GetChatRooms();
+        List<string> GetChatRoomNamesList();
 
         [OperationContract]
         void SendMessage(string message, string roomName, string username);
