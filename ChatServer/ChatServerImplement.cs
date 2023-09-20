@@ -14,12 +14,12 @@ namespace ChatServer
     {
         private static ChatServerImplement instance;
         private UserDatabase db;
-        private List<ChatRoom> roomList;
+        private ChatRoomDatabase roomList;
 
         private ChatServerImplement()
         {
             db = UserDatabase.GetInstance();
-            roomList = new List<ChatRoom>();
+            roomList = ChatRoomDatabase.GetInstance();
         }
 
         public static ChatServerImplement GetInstance()
@@ -35,18 +35,17 @@ namespace ChatServer
         {
             try
             {
-                ChatRoom room = new ChatRoom(roomName);
-                foreach (ChatRoom cRoom in roomList)
+                if (roomList.CheckChatRoom(roomName) == false)
                 {
-                    if (cRoom.GetRoomName().Equals(roomName))
-                    {
-                        throw new FaultException<ChatRoomAlreadyExistsFault>(new ChatRoomAlreadyExistsFault()
-                        { ProblemType = "Chat room name is taken" }, new FaultReason("Chat room name is taken"));
-                    }
-
+                    roomList.AddChatRoom(roomName);
+                    Console.WriteLine("Chat room added: " + roomName);
+                    return true;
                 }
-                roomList.Add(room);
-                return true;
+                else
+                {
+                    throw new FaultException<ChatRoomAlreadyExistsFault>(new ChatRoomAlreadyExistsFault()
+                    { ProblemType = "Chat room is invalid..." }, new FaultReason("Chat room name is taken!"));
+                }
             }
             catch (FaultException<ChatRoomAlreadyExistsFault> e)
             {
@@ -59,13 +58,13 @@ namespace ChatServer
 
         public void joinChatRoom(string roomName, string username)
         {
-            ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
+            ChatRoom room = roomList.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
             room.AddToRoom(username);
         }
 
         public void leaveChatRoom(string roomName, string username)
         {
-            ChatRoom room = roomList.Find(x => x.GetRoomName().Equals(roomName));
+            ChatRoom room = roomList.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
             room.RemoveFromRoom(username);
         }
 
@@ -91,16 +90,16 @@ namespace ChatServer
                 return false;
             }
         }
-        public List<string> GetChatRooms()
+        public List<string> GetChatRoomNamesList()
         {
-            return roomList.Select(room => room.GetRoomName()).ToList();
+            return roomList.GetRoomList().Select(room => room.GetRoomName()).ToList();
         }
 
         public void SendMessage(string message, string roomName, string username)
         {
             ChatRoom tempRoom = null;
 
-            foreach (ChatRoom room in roomList)
+            foreach (ChatRoom room in roomList.GetRoomList())
             {
                 if (room.GetRoomName() == roomName)
                 {
@@ -112,7 +111,7 @@ namespace ChatServer
 
         public ChatRoom FindChatRoom(string roomName)
         {
-            foreach (ChatRoom room in roomList)
+            foreach (ChatRoom room in roomList.GetRoomList())
             {
                 if (room.GetRoomName().Equals(roomName))
                 {
