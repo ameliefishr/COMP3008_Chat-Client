@@ -12,14 +12,23 @@ namespace ChatServer
     [ServiceBehavior(ConcurrencyMode = ConcurrencyMode.Multiple, UseSynchronizationContext = false)]
     internal class ChatServerImplement : ChatServerInterface
     {
+        private static ChatServerImplement instance;
         private UserDatabase db;
         private List<ChatRoom> roomList;
 
-
-        public ChatServerImplement()
+        private ChatServerImplement()
         {
-            db = new UserDatabase();
+            db = UserDatabase.GetInstance();
             roomList = new List<ChatRoom>();
+        }
+
+        public static ChatServerImplement GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new ChatServerImplement();
+            }
+            return instance;
         }
 
         public bool createChatRoom(string roomName)

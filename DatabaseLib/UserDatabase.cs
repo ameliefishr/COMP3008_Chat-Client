@@ -9,10 +9,20 @@ namespace DatabaseLib
     public class UserDatabase
     {
         List<User> users;
+        private static UserDatabase instance;
 
-        public UserDatabase()
+        private UserDatabase()
         {
             users = new List<User>();
+        }
+
+        public static UserDatabase GetInstance()
+        {
+            if (instance == null)
+            {
+                instance = new UserDatabase();
+            }
+            return instance;
         }
 
         public void AddUser(User user)
