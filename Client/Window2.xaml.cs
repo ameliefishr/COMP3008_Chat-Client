@@ -22,9 +22,11 @@ namespace Client
     public partial class Window2 : Window
     {
         private ChatServerInterface foob;
-        public Window2(ChatServerInterface foobFromWindow1)
+        private String username;
+        public Window2(ChatServerInterface foobFromWindow1, String pUsername)
         {
             InitializeComponent();
+            username = pUsername;
             foob = foobFromWindow1;
         }
         private void RefreshButton_Click(object sender, RoutedEventArgs e)
@@ -34,7 +36,7 @@ namespace Client
         }
         private void JoinButton_Click(object sender, RoutedEventArgs e)
         {
-            Window3 window3 = new Window3(foob);
+            Window3 window3 = new Window3(foob, username);
             window3.Show();
             this.Close();
         }

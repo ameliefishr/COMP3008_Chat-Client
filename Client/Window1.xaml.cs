@@ -22,9 +22,11 @@ namespace Client
     public partial class Window1 : Window
     {
         private ChatServerInterface foob;
+        private String username;
         public Window1()
         {
             InitializeComponent();
+            username = null;
 
             ChannelFactory<ChatServerInterface> foobFactory;
             NetTcpBinding tcp = new NetTcpBinding();
@@ -38,8 +40,9 @@ namespace Client
         private void LoginBtn_Click(object sender, RoutedEventArgs e) 
         {
             if (foob.login(UsernameTxt.Text))
-            { 
-                Window2 window2 = new Window2(foob);
+            {
+                username = UsernameTxt.Text;
+                Window2 window2 = new Window2(foob, username);
                 window2.Show();
              }
             else

@@ -23,10 +23,12 @@ namespace Client
     {
         ChatServerInterface foob;
         ChatRoom chatRoom;
-        public Window3(ChatServerInterface foobFromWindow1)
+        private String username;
+        public Window3(ChatServerInterface foobFromWindow1, String pUsername)
         {
             InitializeComponent();
             foob = foobFromWindow1;
+            username = pUsername;
         }
         private void PrivateMessageButton_Click (object sender, RoutedEventArgs e)
         {
@@ -36,7 +38,7 @@ namespace Client
         {
             string message = MessageTextBox.Text;
 
-            foob.SendMessage(message, "chat1", "user1");
+            foob.SendMessage(message, "chat1", username);
             ChatRoom room = foob.FindChatRoom("chat1");
             List<String> msgs = room.GetMessage();
 
