@@ -24,12 +24,17 @@
         <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,0" RenderTransformOrigin="0.5,0.5">
             <ListView.RenderTransform>
                 <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform AngleX="0.13"/>
-                    <RotateTransform/>
-                    <TranslateTransform X="0.307"/>
+                    <ScaleTransform />
+                    <SkewTransform AngleX="0.13" />
+                    <RotateTransform />
+                    <TranslateTransform X="0.307" />
                 </TransformGroup>
             </ListView.RenderTransform>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <EventSetter Event="PreviewMouseLeftButtonDown" Handler="FileMessage_Click" />
+                </Style>
+            </ListView.ItemContainerStyle>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Messages" Width="500">
@@ -42,8 +47,6 @@
                                                 <DataTrigger Binding="{Binding MessageType}" Value="File">
                                                     <Setter Property="Foreground" Value="Blue" />
                                                     <Setter Property="TextDecorations" Value="Underline" />
-                                                    <!-- <EventSetter Event="PreviewMouseLeftButtonDown" Handler="FileMessage_Click" /> This is the line that SHOULD make file messages clickable, however it crashed no matter what I try -->
-                                                    <!-- I did some research and saw a few posts saying it was somethign to do with EventSetter not working properly when inside of a Style, but I don't know how to do it outside of a style (i tried) -->
                                                 </DataTrigger>
                                                 <DataTrigger Binding="{Binding MessageType}" Value="Text">
                                                     <Setter Property="Foreground" Value="Black" />
