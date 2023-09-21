@@ -105,7 +105,7 @@ namespace Client
             if (chatMessage.MessageType == MessageType.File)
             {
                 // Handle opening the file here
-                Window4 fileContentWindow = new Window4(uploadedFilePath);
+                Window4 fileContentWindow = new Window4(chatMessage.MessageText);
                 fileContentWindow.ShowDialog();
             }
         }
