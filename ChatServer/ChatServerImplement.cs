@@ -95,7 +95,7 @@ namespace ChatServer
             return roomList.GetRoomList().Select(room => room.GetRoomName()).ToList();
         }
 
-        public void SendMessage(string message, string roomName, string username)
+        public void SendMessage(ChatMessage message, string roomName, string username)
         {
             ChatRoom tempRoom = null;
 
@@ -104,9 +104,21 @@ namespace ChatServer
                 if (room.GetRoomName() == roomName)
                 {
                     tempRoom = room;
+                    break; // No need to continue searching once the room is found
                 }
             }
-            tempRoom.AddMessage(username + ": " + message);
+
+            if (tempRoom != null)
+            {
+                // Create a chat message and add it to the room
+                var chatMessage = new ChatMessage
+                {
+                    MessageText = username + ": " + message.MessageText,
+                    MessageType = message.MessageType
+                };
+
+                tempRoom.AddMessage(chatMessage);
+            }
         }
 
         public ChatRoom FindChatRoom(string roomName)

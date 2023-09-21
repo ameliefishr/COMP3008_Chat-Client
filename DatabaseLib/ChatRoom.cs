@@ -14,7 +14,7 @@ namespace DatabaseLib
         private List<String> users;
 
         [DataMember]
-        private List<String> messages;
+        private List<ChatMessage> messages;
 
         [DataMember]
         private string roomName;
@@ -23,7 +23,7 @@ namespace DatabaseLib
         {
             this.roomName = roomName;
             users = new List<String>();
-            messages = new List<String>();
+            messages = new List<ChatMessage>();
         }
 
         public string GetRoomName() 
@@ -46,12 +46,12 @@ namespace DatabaseLib
             return users.Contains(username);
         }
 
-        public void AddMessage(string message)
+        public void AddMessage(ChatMessage chatMessage)
         {
-            messages.Add(message);
+            messages.Add(chatMessage);
         }
 
-        public List<String> GetMessage()
+        public List<ChatMessage> GetMessage()
         {
             return messages;
         }

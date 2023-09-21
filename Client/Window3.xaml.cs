@@ -46,10 +46,16 @@ namespace Client
         {
             string message = MessageTextBox.Text;
 
-            foob.SendMessage(message, roomName, username);
-            ChatRoom room = foob.FindChatRoom(roomName);
-            List<String> msgs = room.GetMessage();
+            var chatMessage = new ChatMessage
+            {
+                MessageText = message,
+                MessageType = MessageType.Text
+            };
 
+            foob.SendMessage(chatMessage, roomName, username);
+            ChatRoom room = foob.FindChatRoom(roomName);
+            List<ChatMessage> msgs = room.GetMessage();
+            // MessageBox.Show(message);
             chatRoomListView.ItemsSource = msgs;
         }
 
@@ -65,14 +71,19 @@ namespace Client
 
                 // Read the content of the selected file
                 string fileContent = File.ReadAllText(filepath);
-                foob.SendMessage(filepath, roomName, username);
-                ChatRoom room = foob.FindChatRoom(roomName);
-                List<String> msgs = room.GetMessage();
 
-                chatRoomListView.ItemsSource = msgs;
-                // Create a new window to display the file content
-                Window4 fileContentWindow = new Window4(filepath);
-                fileContentWindow.ShowDialog();
+                // Create a file message
+                var chatMessage = new ChatMessage
+                {
+                    MessageText = filepath,
+                    MessageType = MessageType.File
+                };
+
+                foob.SendMessage(chatMessage, roomName, username);
+                ChatRoom room = foob.FindChatRoom(roomName);
+                List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
+
+                chatRoomListView.ItemsSource = messages;
             }
         }
 
@@ -81,8 +92,8 @@ namespace Client
             // Handle the click event for file messages (e.g., open the file)
             var textBlock = (TextBlock)sender;
             var filepath = textBlock.Text;
-            Window4 fileContentWindow = new Window4(filepath);
-            fileContentWindow.ShowDialog();
+            //Window4 fileContentWindow = new Window4(filepath);
+            //fileContentWindow.ShowDialog();
         }
     }
 }
