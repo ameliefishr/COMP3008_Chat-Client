@@ -30,7 +30,8 @@
 
         <Button x:Name="UploadFileButton" Grid.Column="0" Content="Upload File" HorizontalAlignment="Right" Margin="0,0,454,30" VerticalAlignment="Bottom" Height="27" Width="106" Click="UploadFileButton_Click"/>
         <Button x:Name="SendButton" Grid.Column="0" Content="Send" HorizontalAlignment="Right" Margin="0,0,10,60" VerticalAlignment="Bottom" Height="54" Width="106" Click="SendButton_Click"/>
-        <Button x:Name="ChatRefreshButton" Grid.Column="0" Content="Refresh" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,388,30" Height="25" Click="ChatRefreshButton_Click"/>
+        <Button x:Name="ChatRefreshButton" Grid.Column="0" Content="Refresh Chat" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,369,30" Height="25" Click="ChatRefreshButton_Click"/>
+        <Button x:Name="UserRefreshButton" Content="RefreshUsers" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,275,30" Height="25" Click="UserRefreshButton_Click" />
 
         <TextBlock x:Name="UsersTextBlock" Grid.Column="1" Text="Users" FontWeight="Bold" FontSize="18" Height="50" Margin="10,10,10,0" VerticalAlignment="Top"/>
 
@@ -50,5 +51,5 @@
         </ListView>
         <Button Content="Leave Room" Click="LeaveRoomButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10"/>
     </Grid>
-    
+
 </Window>
