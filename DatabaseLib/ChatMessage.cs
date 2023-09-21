@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace DatabaseLib
@@ -7,18 +8,29 @@ namespace DatabaseLib
     public class ChatMessage
     {
         [DataMember]
-        public string SenderUsername { get; set; } 
+        public string SenderUsername { get; set; }
 
         [DataMember]
-        public string Content { get; set; } 
+        public string RecipientUsername {  get; set; }
+
+        [DataMember]
+        public List<String> content;
 
         [DataMember]
         public DateTime Timestamp { get; set; } 
 
-        public ChatMessage(string senderUsername, string content)
+        public List<String> GetContent() { return content; }
+
+        public void AddContent(string msg)
+        {
+            content.Add(msg);
+        }
+
+        public ChatMessage(string senderUsername, string recipientUsername, string msg)
         {
             SenderUsername = senderUsername;
-            Content = content;
+            RecipientUsername = recipientUsername;
+            content.Add(msg);
             Timestamp = DateTime.Now; // sets to curent time/date
         }
     }

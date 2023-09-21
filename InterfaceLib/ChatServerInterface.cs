@@ -33,11 +33,5 @@ namespace InterfaceLib
 
         [OperationContract]
         void logout(User user);
-
-        [OperationContract]
-        void setCurrentUser(string username);
-
-        [OperationContract]
-        User getCurrentUser();
     }
 }

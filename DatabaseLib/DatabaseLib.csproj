@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ChatMessage.cs" />
+    <Compile Include="ChatMessageDatabase.cs" />
     <Compile Include="ChatRoom.cs" />
     <Compile Include="ChatRoomDatabase.cs" />
     <Compile Include="User.cs" />
