@@ -8,7 +8,7 @@
         Title="Window3" Height="450" Width="800">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="333*"/>
+            <RowDefinition Height="800*"/>
             <RowDefinition Height="101*"/>
         </Grid.RowDefinitions>
 
@@ -18,9 +18,18 @@
         </Grid.ColumnDefinitions>
 
 
-        <TextBlock x:Name="ChatRoomNameTextBlock" Grid.Column="0" Text="Chat Room Name" FontWeight="Bold" FontSize="18" Height="50" Margin="10,10,10,0" VerticalAlignment="Top"/>
+        <TextBlock x:Name="ChatRoomNameTextBlock" Grid.Column="0" Text="Chat Room Name" FontWeight="Bold" FontSize="18" Height="50" Margin="10,8,10,0" VerticalAlignment="Top"/>
+        <Button Content="Leave Room" Grid.Column="0" Click="LeaveRoomButton_Click"  VerticalAlignment="Top" Margin="481,15,10,0"/>
 
-        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,13">
+        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,0" RenderTransformOrigin="0.5,0.5">
+            <ListView.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform AngleX="0.13"/>
+                    <RotateTransform/>
+                    <TranslateTransform X="0.307"/>
+                </TransformGroup>
+            </ListView.RenderTransform>
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Messages" Width="500">
@@ -62,15 +71,16 @@
         </ListView>
 
         <TextBox x:Name="MessageTextBox" Grid.Column="0" Margin="10,0,106,60" TextWrapping="Wrap" Text="Enter message..." VerticalAlignment="Bottom" Height="54"/>
+        <Button x:Name="UploadFileButton" Grid.Column="0" Content="Upload File" Margin="10,0,460,33" VerticalAlignment="Bottom" Height="27" Click="UploadFileButton_Click"/>
+        <Button x:Name="ChatRefreshButton" Grid.Column="0" Content="Refresh Chat" VerticalAlignment="Bottom" Margin="10,0,460,0" Height="27" Click="ChatRefreshButton_Click"/>
+
         <TextBox x:Name="PrivateTextBox" Grid.Column="1" TextWrapping="Wrap" Text="Enter Message..." VerticalAlignment="Top" Height="45" Margin="10,379,53,0"/>
 
-        <Button x:Name="UploadFileButton" Grid.Column="0" Content="Upload File" HorizontalAlignment="Right" Margin="0,0,454,30" VerticalAlignment="Bottom" Height="27" Width="106" Click="UploadFileButton_Click"/>
         <Button x:Name="SendButton" Grid.Column="0" Content="Send" HorizontalAlignment="Right" Margin="0,0,10,60" VerticalAlignment="Bottom" Height="54" Width="106" Click="SendButton_Click"/>
-        <Button x:Name="ChatRefreshButton" Grid.Column="0" Content="Refresh Chat" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,369,30" Height="25" Click="ChatRefreshButton_Click"/>
-        <Button x:Name="UserRefreshButton" Content="RefreshUsers" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,275,30" Height="25" Click="UserRefreshButton_Click" />
         <Button x:Name="PrivateSendButton" Grid.Column="1" Content="Send" HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0,0,10,10" Height="45" Width="38" Click="PrivateSendButton_Click"/>
 
         <TextBlock x:Name="UsersTextBlock" Grid.Column="1" Text="Users" FontWeight="Bold" FontSize="18" Height="50" Margin="10,10,10,0" VerticalAlignment="Top"/>
+        <Button x:Name="UserRefreshButton" Content="RefreshUsers"  VerticalAlignment="Top" Margin="130,10,10,293" Height="25" Click="UserRefreshButton_Click" Grid.Column="1" />
 
         <ListView Grid.Column="1" Name="userListView" Margin="10,50,10,256">
             <ListView.View>
@@ -86,7 +96,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-        <Button Content="Leave Room" Click="LeaveRoomButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10"/>
     </Grid>
 
 </Window>
