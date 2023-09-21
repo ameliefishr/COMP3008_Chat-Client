@@ -46,12 +46,15 @@ namespace Client
         private void CreateChatRoomButton_Click(object sender, RoutedEventArgs e)
         {
             foob.createChatRoom(createChatRoomTextBox.Text);
+
+            List<string> chatrooms = foob.GetChatRoomNamesList();
+            chatRoomListView.ItemsSource = chatrooms;
         }
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            User currentUser = foob.getCurrentUser();
-            foob.logout(currentUser);
+            //User currentUser = foob.getCurrentUser();
+            //foob.logout(currentUser);
             Close();
         }
     }

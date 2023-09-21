@@ -29,15 +29,12 @@ namespace InterfaceLib
         void SendMessage(ChatMessage message, string roomName, string username);
 
         [OperationContract]
+        List<string> GetChatRoomMessage(string roomName);
+
+        [OperationContract]
         ChatRoom FindChatRoom(string roomName);
 
         [OperationContract]
         void logout(User user);
-
-        [OperationContract]
-        void setCurrentUser(string username);
-
-        [OperationContract]
-        User getCurrentUser();
     }
 }

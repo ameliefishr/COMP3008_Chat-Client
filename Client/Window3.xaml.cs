@@ -58,6 +58,13 @@ namespace Client
             // MessageBox.Show(message);
             chatRoomListView.ItemsSource = msgs;
         }
+        private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            foob.leaveChatRoom(roomName, username);
+            Window2 window2 = new Window2(foob, username);
+            window2.Show();
+            this.Close();
+         }
 
         private void UploadFileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -94,6 +101,21 @@ namespace Client
             var filepath = textBlock.Text;
             //Window4 fileContentWindow = new Window4(filepath);
             //fileContentWindow.ShowDialog();
+        private void ChatRefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<String> chat = foob.GetChatRoomMessage(roomName);
+            chatRoomListView.ItemsSource = chat;
+        }
+
+        private void UserRefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> users = foob.FindChatRoom(roomName).GetUsers();
+            userListView.ItemsSource = users;
+        }
+
+        private void PrivateSendButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

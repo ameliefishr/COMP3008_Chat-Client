@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 
 namespace DatabaseLib
@@ -8,6 +9,7 @@ namespace DatabaseLib
     {
         [DataMember]
         public string MessageText { get; set; }
+      
         [DataMember]
         public MessageType MessageType { get; set; }
 
