@@ -52,6 +52,13 @@ namespace Client
 
             chatRoomListView.ItemsSource = msgs;
         }
+        private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
+        {
+            foob.leaveChatRoom(roomName, username);
+            Window2 window2 = new Window2(foob, username);
+            window2.Show();
+            this.Close();
+         }
 
         private void UploadFileButton_Click(object sender, RoutedEventArgs e)
         {
