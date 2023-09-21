@@ -101,6 +101,7 @@ namespace Client
             var filepath = textBlock.Text;
             //Window4 fileContentWindow = new Window4(filepath);
             //fileContentWindow.ShowDialog();
+        }
         private void ChatRefreshButton_Click(object sender, RoutedEventArgs e)
         {
             List<String> chat = foob.GetChatRoomMessage(roomName);
