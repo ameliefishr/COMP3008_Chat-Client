@@ -55,5 +55,10 @@ namespace DatabaseLib
         {
             return messages;
         }
+
+        public List<String> GetUsers()
+        {
+            return users;
+        }
     }
 }

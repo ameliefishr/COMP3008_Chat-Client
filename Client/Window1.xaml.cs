@@ -44,7 +44,8 @@ namespace Client
                 username = UsernameTxt.Text;
                 Window2 window2 = new Window2(foob, username);
                 window2.Show();
-             }
+                this.Close();
+            }
             else
             {
                 MessageBox.Show("Username is not valid: Login Error");

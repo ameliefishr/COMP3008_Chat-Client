@@ -33,6 +33,9 @@ namespace Client
             roomName = pRoomName;
             ChatRoomNameTextBlock.Text=(roomName);
 
+            List<string> users = foob.FindChatRoom(roomName).GetUsers();
+            userListView.ItemsSource = users;
+
         }
         private void PrivateMessageButton_Click (object sender, RoutedEventArgs e)
         {

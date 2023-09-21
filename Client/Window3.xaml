@@ -9,8 +9,8 @@
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="70*"/>
-            <ColumnDefinition Width="30*"/>
+            <ColumnDefinition Width="57*"/>
+            <ColumnDefinition Width="23*"/>
         </Grid.ColumnDefinitions>
 
 
@@ -26,7 +26,7 @@
         </ListView>
 
 
-        <TextBox x:Name="MessageTextBox" Grid.Column="0" HorizontalAlignment="Stretch" Margin="10,0,106,60" TextWrapping="Wrap" Text="Enter message..." VerticalAlignment="Bottom" Height="54"/>
+        <TextBox x:Name="MessageTextBox" Grid.Column="0" Margin="10,0,106,60" TextWrapping="Wrap" Text="Enter message..." VerticalAlignment="Bottom" Height="54"/>
 
 
         <Button x:Name="SendButton" Grid.Column="0" Content="Send" HorizontalAlignment="Right" Margin="0,0,10,60" VerticalAlignment="Bottom" Height="54" Width="106" Click="SendButton_Click"/>
