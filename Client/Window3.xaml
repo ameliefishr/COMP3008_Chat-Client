@@ -21,7 +21,7 @@
         <TextBlock x:Name="ChatRoomNameTextBlock" Grid.Column="0" Text="Chat Room Name" FontWeight="Bold" FontSize="18" Height="50" Margin="10,8,10,0" VerticalAlignment="Top"/>
         <Button Content="Leave Room" Grid.Column="0" Click="LeaveRoomButton_Click"  VerticalAlignment="Top" Margin="481,15,10,0"/>
 
-        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,0" RenderTransformOrigin="0.5,0.5">
+        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,115" RenderTransformOrigin="0.5,0.5">
             <ListView.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform />
