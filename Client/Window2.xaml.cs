@@ -36,7 +36,9 @@ namespace Client
         }
         private void JoinButton_Click(object sender, RoutedEventArgs e)
         {
-            Window3 window3 = new Window3(foob, username);
+            Button joinButton = (Button)sender;
+            string selectedChatRoomName = joinButton.Tag as string;
+            Window3 window3 = new Window3(foob, username, selectedChatRoomName);
             window3.Show();
             this.Close();
         }
