@@ -55,6 +55,12 @@ namespace DatabaseLib
         {
             return roomsList;
         }
+
+        public List<string> GetMessages(string chatRoom)
+        {
+            ChatRoom room = GetChatRoomByName(chatRoom);
+            return room.GetMessage();
+        }
     }
 }
 

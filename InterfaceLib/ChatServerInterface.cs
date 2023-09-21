@@ -29,6 +29,9 @@ namespace InterfaceLib
         void SendMessage(string message, string roomName, string username);
 
         [OperationContract]
+        List<string> GetChatRoomMessage(string roomName);
+
+        [OperationContract]
         ChatRoom FindChatRoom(string roomName);
 
         [OperationContract]
