@@ -13,13 +13,13 @@ namespace ChatServer
     internal class ChatServerImplement : ChatServerInterface
     {
         private static ChatServerImplement instance;
-        private UserDatabase db;
-        private ChatRoomDatabase roomList;
+        private UserDatabase userDB;
+        private ChatRoomDatabase roomDB;
 
         private ChatServerImplement()
         {
-            db = UserDatabase.GetInstance();
-            roomList = ChatRoomDatabase.GetInstance();
+            userDB = UserDatabase.GetInstance();
+            roomDB = ChatRoomDatabase.GetInstance();
         }
 
         public static ChatServerImplement GetInstance()
@@ -35,9 +35,9 @@ namespace ChatServer
         {
             try
             {
-                if (roomList.CheckChatRoom(roomName) == false)
+                if (roomDB.CheckChatRoom(roomName) == false)
                 {
-                    roomList.AddChatRoom(roomName);
+                    roomDB.AddChatRoom(roomName);
                     Console.WriteLine("Chat room added: " + roomName);
                     return true;
                 }
@@ -58,13 +58,13 @@ namespace ChatServer
 
         public void joinChatRoom(string roomName, string username)
         {
-            ChatRoom room = roomList.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
+            ChatRoom room = roomDB.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
             room.AddToRoom(username);
         }
 
         public void leaveChatRoom(string roomName, string username)
         {
-            ChatRoom room = roomList.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
+            ChatRoom room = roomDB.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
             room.RemoveFromRoom(username);
         }
 
@@ -72,9 +72,9 @@ namespace ChatServer
         {
             try
             {
-                if (db.CheckUser(username) == false)
+                if (userDB.CheckUser(username) == false)
                 {
-                    db.AddUserByUsername(username);
+                    userDB.AddUserByUsername(username);
                     Console.WriteLine("User added: " + username);
                     return true;
                 }
@@ -92,14 +92,14 @@ namespace ChatServer
         }
         public List<string> GetChatRoomNamesList()
         {
-            return roomList.GetRoomList().Select(room => room.GetRoomName()).ToList();
+            return roomDB.GetRoomList().Select(room => room.GetRoomName()).ToList();
         }
 
         public void SendMessage(string message, string roomName, string username)
         {
             ChatRoom tempRoom = null;
 
-            foreach (ChatRoom room in roomList.GetRoomList())
+            foreach (ChatRoom room in roomDB.GetRoomList())
             {
                 if (room.GetRoomName() == roomName)
                 {
@@ -111,7 +111,7 @@ namespace ChatServer
 
         public ChatRoom FindChatRoom(string roomName)
         {
-            foreach (ChatRoom room in roomList.GetRoomList())
+            foreach (ChatRoom room in roomDB.GetRoomList())
             {
                 if (room.GetRoomName().Equals(roomName))
                 {
@@ -125,6 +125,11 @@ namespace ChatServer
         public void logout(User user)
         {
             throw new NotImplementedException();
+        }
+
+        public List<string> GetChatRoomMessage(string roomName)
+        {
+            return roomDB.GetMessages(roomName);
         }
     }
 }

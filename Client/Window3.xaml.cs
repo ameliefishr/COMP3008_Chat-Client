@@ -78,5 +78,11 @@ namespace Client
                 fileContentWindow.ShowDialog();
             }
         }
+
+        private void ChatRefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<String> chat = foob.GetChatRoomMessage(roomName);
+            chatRoomListView.ItemsSource = chat;
+        }
     }
 }
