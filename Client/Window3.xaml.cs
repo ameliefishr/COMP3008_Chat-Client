@@ -84,5 +84,11 @@ namespace Client
             List<String> chat = foob.GetChatRoomMessage(roomName);
             chatRoomListView.ItemsSource = chat;
         }
+
+        private void UserRefreshButton_Click(object sender, RoutedEventArgs e)
+        {
+            List<string> users = foob.FindChatRoom(roomName).GetUsers();
+            userListView.ItemsSource = users;
+        }
     }
 }
