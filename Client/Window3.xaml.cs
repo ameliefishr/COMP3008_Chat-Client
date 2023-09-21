@@ -90,5 +90,10 @@ namespace Client
             List<string> users = foob.FindChatRoom(roomName).GetUsers();
             userListView.ItemsSource = users;
         }
+
+        private void PrivateSendButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
