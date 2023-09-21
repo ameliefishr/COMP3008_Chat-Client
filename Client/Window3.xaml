@@ -20,7 +20,25 @@
         <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,110">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Messages" Width="500" />
+                    <GridViewColumn Header="Messages" Width="500">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" Width="Auto">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding MessageType}" Value="File">
+                                                    <Setter Property="Foreground" Value="Blue" />
+                                                    <Setter Property="TextDecorations" Value="Underline" />
+                                                    <EventSetter Event="MouseLeftButtonDown" Handler="FileMessage_Click" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>

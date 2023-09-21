@@ -65,11 +65,24 @@ namespace Client
 
                 // Read the content of the selected file
                 string fileContent = File.ReadAllText(filepath);
+                foob.SendMessage(filepath, roomName, username);
+                ChatRoom room = foob.FindChatRoom(roomName);
+                List<String> msgs = room.GetMessage();
 
+                chatRoomListView.ItemsSource = msgs;
                 // Create a new window to display the file content
                 Window4 fileContentWindow = new Window4(filepath);
                 fileContentWindow.ShowDialog();
             }
+        }
+
+        private void FileMessage_Click(object sender, RoutedEventArgs e)
+        {
+            // Handle the click event for file messages (e.g., open the file)
+            var textBlock = (TextBlock)sender;
+            var filepath = textBlock.Text;
+            Window4 fileContentWindow = new Window4(filepath);
+            fileContentWindow.ShowDialog();
         }
     }
 }
