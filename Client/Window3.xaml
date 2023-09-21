@@ -3,10 +3,14 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Client"
+        xmlns:local="clr-namespace:Client;assembly=Client"
         mc:Ignorable="d"
         Title="Window3" Height="450" Width="800">
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="333*"/>
+            <RowDefinition Height="101*"/>
+        </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="57*"/>
@@ -16,11 +20,35 @@
 
         <TextBlock x:Name="ChatRoomNameTextBlock" Grid.Column="0" Text="Chat Room Name" FontWeight="Bold" FontSize="18" Height="50" Margin="10,10,10,0" VerticalAlignment="Top"/>
 
-
-        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,110">
+        <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,13">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Messages" Width="500" />
+                    <GridViewColumn Header="Messages" Width="500">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Width="Auto">
+                                    <TextBlock.Style>
+                                        <Style TargetType="TextBlock">
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding MessageType}" Value="File">
+                                                    <Setter Property="Foreground" Value="Blue" />
+                                                    <Setter Property="TextDecorations" Value="Underline" />
+                                                    <!-- <EventSetter Event="PreviewMouseLeftButtonDown" Handler="FileMessage_Click" /> This is the line that SHOULD make file messages clickable, however it crashed no matter what I try -->
+                                                    <!-- I did some research and saw a few posts saying it was somethign to do with EventSetter not working properly when inside of a Style, but I don't know how to do it outside of a style (i tried) -->
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding MessageType}" Value="Text">
+                                                    <Setter Property="Foreground" Value="Black" />
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </TextBlock.Style>
+                                    <TextBlock.Text>
+                                        <Binding Path="MessageText" />
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
                 </GridView>
             </ListView.View>
         </ListView>
@@ -32,7 +60,6 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
 
         <TextBox x:Name="MessageTextBox" Grid.Column="0" Margin="10,0,106,60" TextWrapping="Wrap" Text="Enter message..." VerticalAlignment="Bottom" Height="54"/>
         <TextBox x:Name="PrivateTextBox" Grid.Column="1" TextWrapping="Wrap" Text="Enter Message..." VerticalAlignment="Top" Height="45" Margin="10,379,53,0"/>
