@@ -139,7 +139,7 @@ namespace ChatServer
             throw new NotImplementedException();
         }
 
-        public List<string> GetChatRoomMessage(string roomName)
+        public List<ChatMessage> GetChatRoomMessage(string roomName)
         {
             return roomDB.GetMessages(roomName);
         }

@@ -9,11 +9,11 @@ namespace DatabaseLib
 {
     public class ChatMessageDatabase
     {
-        private List<ChatMessage> msgs;
+        private List<ChatPrivateMessage> msgs;
         private static ChatMessageDatabase instance;
         private ChatMessageDatabase()
         {
-            msgs = new List<ChatMessage>();
+            msgs = new List<ChatPrivateMessage>();
         }
 
         public static ChatMessageDatabase GetInstance()
@@ -25,17 +25,17 @@ namespace DatabaseLib
             return instance;
         }
 
-        public void addPrivateMessage(string sender, string recipient, string message)
+        public void addPrivateMessage(string sender, string recipient, ChatMessage message)
         {
-            ChatMessage chat = new ChatMessage(sender, recipient, message);
+            ChatPrivateMessage chat = new ChatPrivateMessage(sender, recipient, message);
             msgs.Add(chat);
         }
 
-        public ChatMessage getPrivateMessage(string sender, string recipient, string message)
+        public ChatPrivateMessage getPrivateMessage(string sender, string recipient, ChatMessage message)
         {
-            foreach(ChatMessage chat in msgs)
+            foreach(ChatPrivateMessage chat in msgs)
             {
-                if(chat.SenderUsername == sender && chat.RecipientUsername == recipient)
+                if(chat.Sender == sender && chat.Recipient == recipient)
                 {
                     return chat;
                 }
