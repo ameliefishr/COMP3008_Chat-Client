@@ -48,6 +48,7 @@
                 </GridView>
             </ListView.View>
         </ListView>
-
+        <Button Content="Leave Room" Click="LeaveRoomButton_Click" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,0,10"/>
     </Grid>
+    
 </Window>
