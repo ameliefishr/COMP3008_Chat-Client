@@ -38,6 +38,7 @@ namespace Client
         {
             Button joinButton = (Button)sender;
             string selectedChatRoomName = joinButton.Tag as string;
+            foob.joinChatRoom(selectedChatRoomName, username);
             Window3 window3 = new Window3(foob, username, selectedChatRoomName);
             window3.Show();
             this.Close();
