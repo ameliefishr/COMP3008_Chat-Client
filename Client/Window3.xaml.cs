@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -26,6 +27,7 @@ namespace Client
         ChatRoom chatRoom;
         private String username;
         private String roomName;
+        private String uploadedFilePath;
         public Window3(ChatServerInterface foobFromWindow1, String pUsername, String pRoomName)
         {
             InitializeComponent();
@@ -85,7 +87,7 @@ namespace Client
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
-
+                uploadedFilePath = filepath;
                 foob.SendMessage(chatMessage, roomName, username);
                 ChatRoom room = foob.FindChatRoom(roomName);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
@@ -97,10 +99,15 @@ namespace Client
         private void FileMessage_Click(object sender, RoutedEventArgs e)
         {
             // Handle the click event for file messages (e.g., open the file)
-            var textBlock = (TextBlock)sender;
-            var filepath = textBlock.Text;
-            //Window4 fileContentWindow = new Window4(filepath);
-            //fileContentWindow.ShowDialog();
+            var textBlock = (ListViewItem)sender;
+            var chatMessage = (ChatMessage)textBlock.DataContext; // Get the associated ChatMessage
+
+            if (chatMessage.MessageType == MessageType.File)
+            {
+                // Handle opening the file here
+                Window4 fileContentWindow = new Window4(uploadedFilePath);
+                fileContentWindow.ShowDialog();
+            }
         }
         private void ChatRefreshButton_Click(object sender, RoutedEventArgs e)
         {

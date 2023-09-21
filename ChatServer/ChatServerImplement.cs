@@ -111,13 +111,30 @@ namespace ChatServer
             if (tempRoom != null)
             {
                 // Create a chat message and add it to the room
-                var chatMessage = new ChatMessage
+                if (message.MessageType == MessageType.Text)
                 {
-                    MessageText = username + ": " + message.MessageText,
-                    MessageType = message.MessageType
-                };
-
-                tempRoom.AddMessage(chatMessage);
+                    var chatMessage = new ChatMessage
+                    {
+                        MessageText = username + ": " + message.MessageText,
+                        MessageType = message.MessageType
+                    };
+                    tempRoom.AddMessage(chatMessage);
+                }
+                else if(message.MessageType == MessageType.File)
+                {
+                    var chatMessage = new ChatMessage
+                    {
+                        MessageText = username + " uploaded file:",
+                        MessageType = MessageType.Text
+                    };
+                    var fileMessage = new ChatMessage
+                    {
+                        MessageText = message.MessageText,
+                        MessageType = message.MessageType
+                    };
+                    tempRoom.AddMessage(chatMessage);
+                    tempRoom.AddMessage(fileMessage);
+                }
             }
         }
 
