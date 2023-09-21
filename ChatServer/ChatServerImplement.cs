@@ -126,15 +126,5 @@ namespace ChatServer
         {
             throw new NotImplementedException();
         }
-
-        public void setCurrentUser(string username)
-        {
-            throw new NotImplementedException();
-        }
-
-        public User getCurrentUser()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

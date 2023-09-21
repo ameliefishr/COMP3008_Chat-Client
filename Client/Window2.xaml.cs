@@ -50,8 +50,8 @@ namespace Client
 
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
-            User currentUser = foob.getCurrentUser();
-            foob.logout(currentUser);
+            //User currentUser = foob.getCurrentUser();
+            //foob.logout(currentUser);
             Close();
         }
     }
