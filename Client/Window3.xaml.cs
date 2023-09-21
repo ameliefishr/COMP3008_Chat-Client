@@ -2,6 +2,7 @@
 using InterfaceLib;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -57,6 +58,25 @@ namespace Client
             Window2 window2 = new Window2(foob, username);
             window2.Show();
             this.Close();
+         }
+
+        private void UploadFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog openFile = new Microsoft.Win32.OpenFileDialog();
+
+            bool? response = openFile.ShowDialog();
+
+            if (response == true)
+            {
+                string filepath = openFile.FileName;
+
+                // Read the content of the selected file
+                string fileContent = File.ReadAllText(filepath);
+
+                // Create a new window to display the file content
+                Window4 fileContentWindow = new Window4(filepath);
+                fileContentWindow.ShowDialog();
+            }
         }
     }
 }
