@@ -24,10 +24,13 @@ namespace Client
     public partial class ChatroomWindow : Window
     {
         ChatServerInterface foob;
-        ChatRoom chatRoom;
         private String username;
         private String roomName;
         private String uploadedFilePath;
+
+        private System.Threading.Timer userListUpdateTimer;
+        private System.Threading.Timer messageUpdateTimer;
+        private TimeSpan updateInterval = TimeSpan.FromSeconds(0.5);
         public ChatroomWindow(ChatServerInterface foobFromWindow1, String pUsername, String pRoomName)
         {
             InitializeComponent();
@@ -38,6 +41,9 @@ namespace Client
 
             List<string> users = foob.FindChatRoom(roomName).GetUsers();
             userListView.ItemsSource = users;
+
+            userListUpdateTimer = new System.Threading.Timer(UpdateUsersList, null, TimeSpan.Zero, updateInterval);
+            messageUpdateTimer = new System.Threading.Timer(UpdateMessages, null, TimeSpan.Zero, updateInterval);
 
         }
         private void PrivateMessageButton_Click (object sender, RoutedEventArgs e)
@@ -109,21 +115,24 @@ namespace Client
                 fileContentWindow.ShowDialog();
             }
         }
-        private void ChatRefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<ChatMessage> chat = foob.GetChatRoomMessage(roomName);
-            chatRoomListView.ItemsSource = chat;
-        }
-
-        private void UserRefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<string> users = foob.FindChatRoom(roomName).GetUsers();
-            userListView.ItemsSource = users;
-        }
 
         private void PrivateSendButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private async void UpdateUsersList(object state)
+        {
+            List<string> users = await Task.Run(() => foob.FindChatRoom(roomName).GetUsers());
+
+            Dispatcher.Invoke(() => userListView.ItemsSource = users);
+        }
+
+        private async void UpdateMessages(object state)
+        {
+            List<ChatMessage> chat = await Task.Run(() => foob.GetChatRoomMessage(roomName));
+
+            Dispatcher.Invoke(() => chatRoomListView.ItemsSource = chat);
         }
     }
 }

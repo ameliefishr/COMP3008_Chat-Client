@@ -23,17 +23,17 @@ namespace Client
     {
         private ChatServerInterface foob;
         private String username;
+        private System.Threading.Timer chatRoomListUpdateTimer;
+        private TimeSpan updateInterval = TimeSpan.FromSeconds(0.5);
         public RoomSelectWindow(ChatServerInterface foobFromWindow1, String pUsername)
         {
             InitializeComponent();
             username = pUsername;
             foob = foobFromWindow1;
+
+            chatRoomListUpdateTimer = new System.Threading.Timer(UpdateChatroomList, null, TimeSpan.Zero, updateInterval);
         }
-        private void RefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<string> chatrooms = foob.GetChatRoomNamesList();
-            chatRoomListView.ItemsSource = chatrooms;
-        }
+
         private void JoinButton_Click(object sender, RoutedEventArgs e)
         {
             Button joinButton = (Button)sender;
@@ -55,6 +55,13 @@ namespace Client
         {
             foob.logout(username);
             Close();
+        }
+
+        private async void UpdateChatroomList(object state)
+        {
+            List<string> chatrooms = await Task.Run(() => foob.GetChatRoomNamesList());
+
+            Dispatcher.Invoke(() => chatRoomListView.ItemsSource = chatrooms);
         }
     }
 }
