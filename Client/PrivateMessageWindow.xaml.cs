@@ -33,7 +33,7 @@ namespace Client
             sender = pSender;
             recipient = pRecipient;
             ChatRoomNameTextBlock.Text = (recipient);
-
+            chatRoom = new ChatRoom(recipient, ChatRoom.RoomType.Private);
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
@@ -46,17 +46,13 @@ namespace Client
                 MessageType = MessageType.Text
             };
 
-            //foob.SendMessage(chatMessage, roomName, username);
-            //ChatRoom room = foob.FindChatRoom(roomName);
-            //List<ChatMessage> msgs = room.GetMessage();
-            // MessageBox.Show(message);
-            //chatRoomListView.ItemsSource = msgs;
+            foob.SendMessage(chatMessage, chatRoom, this.sender);
+            List<ChatMessage> msgs = chatRoom.GetMessage();
+            chatRoomListView.ItemsSource = msgs;
         }
         private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
         {
-            //foob.leaveChatRoom(roomName, username);
-           // RoomSelectWindow window2 = new RoomSelectWindow(foob, username);
-            //window2.Show();
+            foob.leaveChatRoom(chatRoom.GetRoomName(), this.sender);
             this.Close();
         }
 
@@ -79,11 +75,11 @@ namespace Client
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
-               // foob.SendMessage(chatMessage, roomName, username);
-               // ChatRoom room = foob.FindChatRoom(roomName);
-                //List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
+                ChatRoom room = this.chatRoom;
+                foob.SendMessage(chatMessage, room, this.sender);
+                List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
 
-                //chatRoomListView.ItemsSource = messages;
+                chatRoomListView.ItemsSource = messages;
             }
         }
 

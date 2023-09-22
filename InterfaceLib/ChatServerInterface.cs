@@ -26,7 +26,7 @@ namespace InterfaceLib
         List<string> GetChatRoomNamesList();
 
         [OperationContract]
-        void SendMessage(ChatMessage message, string roomName, string username);
+        void SendMessage(ChatMessage message, ChatRoom chatRoom, string username);
 
         [OperationContract]
         List<ChatMessage> GetChatRoomMessage(string roomName);
