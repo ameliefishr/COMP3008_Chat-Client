@@ -37,7 +37,7 @@ namespace ChatServer
             {
                 if (roomDB.CheckChatRoom(roomName) == false)
                 {
-                    roomDB.AddChatRoom(roomName);
+                    roomDB.AddChatRoom(roomName, ChatRoom.RoomType.Public);
                     Console.WriteLine("Chat room added: " + roomName);
                     return true;
                 }

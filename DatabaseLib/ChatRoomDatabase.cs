@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static DatabaseLib.ChatRoom;
 
 namespace DatabaseLib
 {
@@ -25,9 +26,9 @@ namespace DatabaseLib
             return instance;
         }
 
-        public void AddChatRoom(String roomName)
+        public void AddChatRoom(String roomName, RoomType roomType)
         {
-            ChatRoom room = new ChatRoom(roomName);
+            ChatRoom room = new ChatRoom(roomName, roomType);
             roomsList.Add(room);
         }
 
