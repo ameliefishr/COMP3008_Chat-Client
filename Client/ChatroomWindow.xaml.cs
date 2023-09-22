@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.ServiceModel.Channels;
+using System.ServiceModel.Security.Tokens;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -49,9 +50,8 @@ namespace Client
                 MessageText = message,
                 MessageType = MessageType.Text
             };
-
-            foob.SendMessage(chatMessage, roomName, username);
             ChatRoom room = foob.FindChatRoom(roomName);
+            foob.SendMessage(chatMessage, room, username);
             List<ChatMessage> msgs = room.GetMessage();
             // MessageBox.Show(message);
             chatRoomListView.ItemsSource = msgs;
@@ -83,8 +83,8 @@ namespace Client
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
-                foob.SendMessage(chatMessage, roomName, username);
                 ChatRoom room = foob.FindChatRoom(roomName);
+                foob.SendMessage(chatMessage, room, username);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
 
                 chatRoomListView.ItemsSource = messages;
@@ -118,7 +118,8 @@ namespace Client
 
         private void PrivateMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            PrivateMessageWindow privateMessageWindow = new PrivateMessageWindow(foob, username, "recipient");
+            string recipient = "recipient"; //change recipient later to the selected user's username, just hardcoded for now
+            PrivateMessageWindow privateMessageWindow = new PrivateMessageWindow(foob, username, recipient); 
             privateMessageWindow.Show();
         }
     }
