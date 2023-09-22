@@ -20,7 +20,10 @@ namespace InterfaceLib
         void leaveChatRoom(string roomName, string username);
 
         [OperationContract]
-        bool createChatRoom(string roomName);
+        bool createPublicChatRoom(string roomName);
+
+        [OperationContract]
+        bool createPrivateChatRoom(string roomName);
 
         [OperationContract]
         List<string> GetChatRoomNamesList();
@@ -29,10 +32,16 @@ namespace InterfaceLib
         void SendMessage(ChatMessage message, string chatRoom, string username);
 
         [OperationContract]
+        void SendPrivateMessage(ChatMessage message, string chatRoom, string username);
+
+        [OperationContract]
         List<ChatMessage> GetChatRoomMessage(string roomName);
 
         [OperationContract]
-        ChatRoom FindChatRoom(string roomName);
+        ChatRoom FindPublicChatRoom(string roomName);
+
+        [OperationContract]
+        ChatRoom FindPrivateChatRoom(string roomName);
 
         [OperationContract]
         void logout(string username);
