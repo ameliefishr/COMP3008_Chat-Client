@@ -48,7 +48,7 @@ namespace Client
                 MessageType = MessageType.Text
             };
 
-            foob.SendMessage(chatMessage, chatRoom, this.sender);
+            foob.SendMessage(chatMessage, recipient, this.sender);
             List<ChatMessage> msgs = chatRoom.GetMessage();
             chatRoomListView.ItemsSource = msgs;
         }
@@ -78,7 +78,7 @@ namespace Client
                     MessageType = MessageType.File
                 };
                 ChatRoom room = this.chatRoom;
-                foob.SendMessage(chatMessage, room, this.sender);
+                foob.SendMessage(chatMessage, recipient, this.sender);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
 
                 chatRoomListView.ItemsSource = messages;

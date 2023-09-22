@@ -95,9 +95,20 @@ namespace ChatServer
             return roomDB.GetRoomList().Select(room => room.GetRoomName()).ToList();
         }
 
-        public void SendMessage(ChatMessage message, ChatRoom chatRoom, string username)
+        public void SendMessage(ChatMessage message, string roomName, string username)
         {
-            if (chatRoom != null)
+            ChatRoom tempRoom = null;
+
+            foreach (ChatRoom room in roomDB.GetRoomList())
+            {
+                if (room.GetRoomName() == roomName)
+                {
+                    tempRoom = room;
+                    break; // No need to continue searching once the room is found
+                }
+            }
+
+            if (tempRoom != null)
             {
                 // Create a chat message and add it to the room
                 if (message.MessageType == MessageType.Text)
@@ -107,7 +118,7 @@ namespace ChatServer
                         MessageText = username + ": " + message.MessageText,
                         MessageType = message.MessageType
                     };
-                    chatRoom.AddMessage(chatMessage);
+                    tempRoom.AddMessage(chatMessage);
                 }
                 else if (message.MessageType == MessageType.File)
                 {
@@ -121,8 +132,8 @@ namespace ChatServer
                         MessageText = message.MessageText,
                         MessageType = message.MessageType
                     };
-                    chatRoom.AddMessage(chatMessage);
-                    chatRoom.AddMessage(fileMessage);
+                    tempRoom.AddMessage(chatMessage);
+                    tempRoom.AddMessage(fileMessage);
                 }
             }
         }
