@@ -26,11 +26,11 @@ namespace Client
         ChatServerInterface foob;
         private String username;
         private String roomName;
-        private String uploadedFilePath;
 
         private System.Threading.Timer userListUpdateTimer;
         private System.Threading.Timer messageUpdateTimer;
         private TimeSpan updateInterval = TimeSpan.FromSeconds(0.5);
+
         public ChatroomWindow(ChatServerInterface foobFromWindow1, String pUsername, String pRoomName)
         {
             InitializeComponent();
@@ -45,9 +45,6 @@ namespace Client
             userListUpdateTimer = new System.Threading.Timer(UpdateUsersList, null, TimeSpan.Zero, updateInterval);
             messageUpdateTimer = new System.Threading.Timer(UpdateMessages, null, TimeSpan.Zero, updateInterval);
 
-        }
-        private void PrivateMessageButton_Click (object sender, RoutedEventArgs e)
-        {
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
@@ -93,7 +90,6 @@ namespace Client
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
-                uploadedFilePath = filepath;
                 foob.SendMessage(chatMessage, roomName, username);
                 ChatRoom room = foob.FindChatRoom(roomName);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
@@ -116,10 +112,6 @@ namespace Client
             }
         }
 
-        private void PrivateSendButton_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
 
         private async void UpdateUsersList(object state)
         {
@@ -133,6 +125,11 @@ namespace Client
             List<ChatMessage> chat = await Task.Run(() => foob.GetChatRoomMessage(roomName));
 
             Dispatcher.Invoke(() => chatRoomListView.ItemsSource = chat);
+        }
+        private void PrivateMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            PrivateMessageWindow privateMessageWindow = new PrivateMessageWindow(foob, username, "recipient");
+            privateMessageWindow.Show();
         }
     }
 }

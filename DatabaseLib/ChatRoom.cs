@@ -18,17 +18,30 @@ namespace DatabaseLib
 
         [DataMember]
         private string roomName;
+        private RoomType roomType;
 
-        public ChatRoom(String roomName)
+        public ChatRoom(String roomName, RoomType roomType)
         {
             this.roomName = roomName;
             users = new List<String>();
             messages = new List<ChatMessage>();
+            this.roomType = roomType;
         }
 
-        public string GetRoomName() 
-        { 
-            return roomName; 
+        public enum RoomType
+        {
+            Public,
+            Private
+        }
+
+        public string GetRoomName()
+        {
+            return roomName;
+        }
+
+        public RoomType GetRoomType()
+        {
+            return roomType;
         }
 
         public void AddToRoom(String username)
