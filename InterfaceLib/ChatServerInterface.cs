@@ -35,6 +35,6 @@ namespace InterfaceLib
         ChatRoom FindChatRoom(string roomName);
 
         [OperationContract]
-        void logout(User user);
+        void logout(string username);
     }
 }

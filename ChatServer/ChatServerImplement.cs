@@ -151,9 +151,10 @@ namespace ChatServer
 
         }
 
-        public void logout(User user)
+        public void logout(string username)
         {
-            throw new NotImplementedException();
+            userDB.RemoveUserByUsername(username);
+            Console.WriteLine("User "+ username + " logged out.");
         }
 
         public List<ChatMessage> GetChatRoomMessage(string roomName)
