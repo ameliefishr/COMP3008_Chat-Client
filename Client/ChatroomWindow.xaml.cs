@@ -27,7 +27,6 @@ namespace Client
         ChatRoom chatRoom;
         private String username;
         private String roomName;
-        private String uploadedFilePath;
         public ChatroomWindow(ChatServerInterface foobFromWindow1, String pUsername, String pRoomName)
         {
             InitializeComponent();
@@ -84,7 +83,6 @@ namespace Client
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
-                uploadedFilePath = filepath;
                 foob.SendMessage(chatMessage, roomName, username);
                 ChatRoom room = foob.FindChatRoom(roomName);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects

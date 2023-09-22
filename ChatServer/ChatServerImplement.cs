@@ -120,7 +120,7 @@ namespace ChatServer
                     };
                     tempRoom.AddMessage(chatMessage);
                 }
-                else if(message.MessageType == MessageType.File)
+                else if (message.MessageType == MessageType.File)
                 {
                     var chatMessage = new ChatMessage
                     {
