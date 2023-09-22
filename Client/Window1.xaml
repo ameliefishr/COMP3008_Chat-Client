@@ -7,13 +7,13 @@
         mc:Ignorable="d"
         Title="Window1" Height="450" Width="800">
     <Grid>
-        <TextBox x:Name="UsernameTxt" Margin="1"
-         BorderThickness="4"
-         Text=" User name"
-         BorderBrush="SlateBlue"
-         Background="White"
-         Grid.Row="0"
-         HorizontalAlignment="Center" Grid.RowSpan="4" Height ="35" Width="250" VerticalAlignment="Center" FontSize="14" AcceptsTab="True">
+        <TextBox x:Name="UsernameTxt" Margin="0"
+                 BorderThickness="4"
+                 Text=" User name"
+                 BorderBrush="SlateBlue"
+                 Background="White"
+                 Grid.Row="0"
+                 HorizontalAlignment="Center" VerticalAlignment="Center" Height="35" Width="250" FontSize="14" AcceptsTab="True">
             <TextBox.Resources>
                 <Style TargetType="{x:Type Border}">
                     <Setter Property="CornerRadius" Value="16"/>
@@ -21,21 +21,23 @@
             </TextBox.Resources>
         </TextBox>
         <Button x:Name="LoginBtn" 
-        Content="Login" 
-        Foreground="White"
-        Background="SlateBlue"
-        Margin="275,240,275,159"
-        Height="35"
-        Width="250" Click="LoginBtn_Click">
+                Content="Login" 
+                Foreground="White"
+                Background="SlateBlue"
+                Margin="0,90,0,0"
+                Height="35"
+                Grid.Row="0"
+                VerticalAlignment="Center" HorizontalAlignment="Center"
+                Width="250" Click="LoginBtn_Click">
             <Button.Style>
                 <Style TargetType="Button">
                     <Setter Property="Template">
                         <Setter.Value>
                             <ControlTemplate TargetType="{x:Type Button}">
                                 <Border x:Name="LoginBorder" Background="{TemplateBinding Background}"
-                                CornerRadius="16">
+                                        CornerRadius="16">
                                     <ContentPresenter HorizontalAlignment="Center" 
-                                              VerticalAlignment="Center"/>
+                                                      VerticalAlignment="Center"/>
                                 </Border>
                                 <ControlTemplate.Triggers>
                                     <Trigger Property="IsMouseOver" Value="True">
