@@ -25,8 +25,8 @@ namespace Client
     {
         ChatServerInterface foob;
         ChatRoom chatRoom;
-        private String sender;
-        private String recipient;
+        private string sender;
+        private string recipient;
         private CancellationTokenSource cancellationTokenSource;
         public PrivateMessageWindow(ChatServerInterface foobFromWindow1, String pSender, String pRecipient)
         {
@@ -56,7 +56,6 @@ namespace Client
         }
         private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
         {
-            foob.leaveChatRoom(chatRoom.GetRoomName(), this.sender);
             this.Close();
         }
 

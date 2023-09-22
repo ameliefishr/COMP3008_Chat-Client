@@ -131,7 +131,8 @@ namespace Client
         }
         private void PrivateMessageButton_Click(object sender, RoutedEventArgs e)
         {
-            string recipient = "recipient"; //change recipient later to the selected user's username, just hardcoded for now
+            Button select = (Button)sender;
+            string recipient = select.Tag as string; //change recipient later to the selected user's username, just hardcoded for now
             PrivateMessageWindow privateMessageWindow = new PrivateMessageWindow(foob, username, recipient); 
             privateMessageWindow.Show();
             RoomSelectWindow.openWindows.Add(privateMessageWindow);
