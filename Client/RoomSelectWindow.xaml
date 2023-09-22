@@ -9,7 +9,6 @@
     <Grid>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10">
             <TextBlock Text="Chat Rooms" FontWeight="Bold" FontSize="18" Width="100" Height="50" Margin="0,0,10,0"/>
-            <Button Content="Refresh" Width="100" Height="35" Click="RefreshButton_Click" Margin="10,0,0,0"/>
             <Button Content="Logout" Width="100" Height="35" Click="LogoutButton_Click" Margin="450,0,0,0"/>
         </StackPanel>
 

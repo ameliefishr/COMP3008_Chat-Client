@@ -67,12 +67,10 @@
 
         <TextBox x:Name="MessageTextBox" Grid.Column="0" Margin="10,0,106,60" TextWrapping="Wrap" Text="Enter message..." VerticalAlignment="Bottom" Height="54"/>
         <Button x:Name="UploadFileButton" Grid.Column="0" Content="Upload File" Margin="10,0,460,33" VerticalAlignment="Bottom" Height="27" Click="UploadFileButton_Click"/>
-        <Button x:Name="ChatRefreshButton" Grid.Column="0" Content="Refresh Chat" VerticalAlignment="Bottom" Margin="10,0,460,0" Height="27" Click="ChatRefreshButton_Click"/>
 
         <Button x:Name="SendButton" Grid.Column="0" Content="Send" HorizontalAlignment="Right" Margin="0,0,10,60" VerticalAlignment="Bottom" Height="54" Width="106" Click="SendButton_Click"/>
 
         <TextBlock x:Name="UsersTextBlock" Grid.Column="1" Text="Users" FontWeight="Bold" FontSize="18" Height="50" Margin="10,10,10,0" VerticalAlignment="Top"/>
-        <Button x:Name="UserRefreshButton" Content="RefreshUsers"  VerticalAlignment="Top" Margin="130,10,10,293" Height="25" Click="UserRefreshButton_Click" Grid.Column="1" />
 
         <ListView Grid.Column="1" Name="userListView" Margin="10,50,10,0">
             <ListView.View>
