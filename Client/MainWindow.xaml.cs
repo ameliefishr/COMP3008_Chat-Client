@@ -27,7 +27,7 @@ namespace Client
 
         private void BtnUser1_Click(object sender, RoutedEventArgs e)
         {
-            Window1 newWindow1 = new Window1();
+            LoginWindow newWindow1 = new LoginWindow();
             newWindow1.Show();
             this.Close();
         }

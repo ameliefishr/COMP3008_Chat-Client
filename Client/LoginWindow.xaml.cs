@@ -19,11 +19,11 @@ namespace Client
     /// <summary>
     /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class Window1 : Window
+    public partial class LoginWindow : Window
     {
         private ChatServerInterface foob;
         private String username;
-        public Window1()
+        public LoginWindow()
         {
             InitializeComponent();
             username = null;
@@ -42,7 +42,7 @@ namespace Client
             if (foob.login(UsernameTxt.Text))
             {
                 username = UsernameTxt.Text;
-                Window2 window2 = new Window2(foob, username);
+                RoomSelectWindow window2 = new RoomSelectWindow(foob, username);
                 window2.Show();
                 this.Close();
             }
