@@ -25,6 +25,7 @@ namespace Client
         private String username;
         private System.Threading.Timer chatRoomListUpdateTimer;
         private TimeSpan updateInterval = TimeSpan.FromSeconds(0.5);
+        public static List<Window> openWindows = new List<Window>();
         public RoomSelectWindow(ChatServerInterface foobFromWindow1, String pUsername)
         {
             InitializeComponent();
@@ -41,6 +42,7 @@ namespace Client
             foob.joinChatRoom(selectedChatRoomName, username);
             ChatroomWindow window3 = new ChatroomWindow(foob, username, selectedChatRoomName);
             window3.Show();
+            openWindows.Add(window3);
             this.Close();
         }
         private void CreateChatRoomButton_Click(object sender, RoutedEventArgs e)
@@ -54,6 +56,12 @@ namespace Client
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             foob.logout(username);
+            foreach (var window in openWindows)
+            {
+                window.Close();
+            }
+
+            openWindows.Clear();
             Close();
         }
 

@@ -155,6 +155,16 @@ namespace ChatServer
         {
             userDB.RemoveUserByUsername(username);
             Console.WriteLine("User "+ username + " logged out.");
+            foreach (ChatRoom room in roomDB.GetRoomList())
+            {
+                foreach (string user in room.GetUsers())
+                {
+                    if (user.Equals(username))
+                    {
+                        room.RemoveFromRoom(username);
+                    }
+                }
+            }
         }
 
         public List<ChatMessage> GetChatRoomMessage(string roomName)

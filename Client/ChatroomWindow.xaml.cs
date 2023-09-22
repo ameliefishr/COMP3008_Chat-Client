@@ -68,6 +68,8 @@ namespace Client
             foob.leaveChatRoom(roomName, username);
             RoomSelectWindow window2 = new RoomSelectWindow(foob, username);
             window2.Show();
+            RoomSelectWindow.openWindows.Add(window2);
+            RoomSelectWindow.openWindows.Remove(this);
             this.Close();
          }
 
@@ -130,6 +132,7 @@ namespace Client
         {
             PrivateMessageWindow privateMessageWindow = new PrivateMessageWindow(foob, username, "recipient");
             privateMessageWindow.Show();
+            RoomSelectWindow.openWindows.Add(privateMessageWindow);
         }
     }
 }
