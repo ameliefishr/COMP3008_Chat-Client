@@ -12,8 +12,8 @@
             <RowDefinition Height="101*"/>
         </Grid.RowDefinitions>
 
-        <TextBlock x:Name="ChatRoomNameTextBlock" Grid.Column="0" Text="Username" FontWeight="Bold" FontSize="18" Height="50" Margin="10,8,10,0" VerticalAlignment="Top"/>
-        <Button Content="Leave Room" Grid.Column="0" Click="LeaveRoomButton_Click"  VerticalAlignment="Top" Margin="481,15,10,0"/>
+        <TextBlock x:Name="ChatRoomNameTextBlock" Grid.Column="0" Text="Recipient Username" FontWeight="Bold" FontSize="18" Height="50" Margin="10,8,10,0" VerticalAlignment="Top"/>
+        <Button Content="Leave Room" Grid.Column="0" Click="LeaveRoomButton_Click"  VerticalAlignment="Top" Margin="400,15,10,0"/>
 
         <ListView Grid.Column="0" Name="chatRoomListView" Margin="10,50,10,115" RenderTransformOrigin="0.5,0.5">
             <ListView.RenderTransform>
@@ -60,7 +60,7 @@
         </ListView>
 
         <TextBox x:Name="MessageTextBox" Grid.Column="0" Margin="10,0,106,60" TextWrapping="Wrap" Text="Enter message..." VerticalAlignment="Bottom" Height="54"/>
-        <Button x:Name="UploadFileButton" Grid.Column="0" Content="Upload File" Margin="10,0,460,33" VerticalAlignment="Bottom" Height="27" Click="UploadFileButton_Click"/>
+        <Button x:Name="UploadFileButton" Grid.Column="0" Content="Upload File" Margin="10,0,422,33" VerticalAlignment="Bottom" Height="27" Click="UploadFileButton_Click"/>
 
         <Button x:Name="SendButton" Grid.Column="0" Content="Send" HorizontalAlignment="Right" Margin="0,0,10,60" VerticalAlignment="Bottom" Height="54" Width="106" Click="SendButton_Click"/>
     </Grid>
