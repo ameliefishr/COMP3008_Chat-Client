@@ -36,20 +36,22 @@ namespace Client
             recipient = pRecipient;
             ChatRoomNameTextBlock.Text = (recipient);
             chatRoom = new ChatRoom(recipient, ChatRoom.RoomType.Private);
+            foob.createPrivateChatRoom(recipient);
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             string message = MessageTextBox.Text;
-
             var chatMessage = new ChatMessage
             {
                 MessageText = message,
                 MessageType = MessageType.Text
             };
 
-            foob.SendMessage(chatMessage, recipient, this.sender);
-            List<ChatMessage> msgs = chatRoom.GetMessage();
+            ChatRoom room = foob.FindPrivateChatRoom(recipient);
+            foob.SendPrivateMessage(chatMessage, recipient, this.sender);
+            List<ChatMessage> msgs = room.GetMessage();
+
             chatRoomListView.ItemsSource = msgs;
         }
         private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
@@ -77,8 +79,8 @@ namespace Client
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
-                ChatRoom room = this.chatRoom;
-                foob.SendMessage(chatMessage, recipient, this.sender);
+                ChatRoom room = foob.FindPrivateChatRoom(this.recipient);
+                foob.SendPrivateMessage(chatMessage, this.recipient, this.sender);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
 
                 chatRoomListView.ItemsSource = messages;

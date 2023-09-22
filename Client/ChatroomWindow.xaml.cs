@@ -40,7 +40,7 @@ namespace Client
             roomName = pRoomName;
             ChatRoomNameTextBlock.Text=(roomName);
 
-            List<string> users = foob.FindChatRoom(roomName).GetUsers();
+            List<string> users = foob.FindPublicChatRoom(roomName).GetUsers();
             userListView.ItemsSource = users;
 
             userListUpdateTimer = new System.Threading.Timer(UpdateUsersList, null, TimeSpan.Zero, updateInterval);
@@ -57,7 +57,7 @@ namespace Client
                 MessageText = message,
                 MessageType = MessageType.Text
             };
-            ChatRoom room = foob.FindChatRoom(roomName);
+            ChatRoom room = foob.FindPublicChatRoom(roomName);
             foob.SendMessage(chatMessage, roomName, username);
             List<ChatMessage> msgs = room.GetMessage();
             // MessageBox.Show(message);
@@ -94,7 +94,7 @@ namespace Client
                 };
                 
                 foob.SendMessage(chatMessage, roomName, username);
-                ChatRoom room = foob.FindChatRoom(roomName);
+                ChatRoom room = foob.FindPublicChatRoom(roomName);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
 
                 chatRoomListView.ItemsSource = messages;
@@ -118,7 +118,7 @@ namespace Client
 
         private async void UpdateUsersList(object state)
         {
-            List<string> users = await Task.Run(() => foob.FindChatRoom(roomName).GetUsers());
+            List<string> users = await Task.Run(() => foob.FindPublicChatRoom(roomName).GetUsers());
 
             Dispatcher.Invoke(() => userListView.ItemsSource = users);
         }

@@ -47,7 +47,7 @@ namespace Client
         }
         private void CreateChatRoomButton_Click(object sender, RoutedEventArgs e)
         {
-            foob.createChatRoom(createChatRoomTextBox.Text);
+            foob.createPublicChatRoom(createChatRoomTextBox.Text);
 
             List<string> chatrooms = foob.GetChatRoomNamesList();
             chatRoomListView.ItemsSource = chatrooms;

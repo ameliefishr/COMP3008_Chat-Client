@@ -31,11 +31,11 @@ namespace ChatServer
             return instance;
         }
 
-        public bool createChatRoom(string roomName)
+        public bool createPublicChatRoom(string roomName)
         {
             try
             {
-                if (roomDB.CheckChatRoom(roomName) == false)
+                if (roomDB.CheckPublicChatRoom(roomName) == false)
                 {
                     roomDB.AddChatRoom(roomName, ChatRoom.RoomType.Public);
                     Console.WriteLine("Chat room added: " + roomName);
@@ -52,19 +52,40 @@ namespace ChatServer
                 Console.WriteLine(e.Message);
                 return false;
             }
+        }
 
-
+        public bool createPrivateChatRoom(string roomName)
+        {
+            try
+            {
+                if (roomDB.CheckPrivateChatRoom(roomName) == false)
+                {
+                    roomDB.AddChatRoom(roomName, ChatRoom.RoomType.Private);
+                    Console.WriteLine("Private chat room added: " + roomName);
+                    return true;
+                }
+                else
+                {
+                    throw new FaultException<ChatRoomAlreadyExistsFault>(new ChatRoomAlreadyExistsFault()
+                    { ProblemType = "Chat room is invalid..." }, new FaultReason("Chat room name is taken!"));
+                }
+            }
+            catch (FaultException<ChatRoomAlreadyExistsFault> e)
+            {
+                Console.WriteLine(e.Message);
+                return false;
+            }
         }
 
         public void joinChatRoom(string roomName, string username)
         {
-            ChatRoom room = roomDB.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
+            ChatRoom room = roomDB.GetPublicRoomList().Find(x => x.GetRoomName().Equals(roomName));
             room.AddToRoom(username);
         }
 
         public void leaveChatRoom(string roomName, string username)
         {
-            ChatRoom room = roomDB.GetRoomList().Find(x => x.GetRoomName().Equals(roomName));
+            ChatRoom room = roomDB.GetPublicRoomList().Find(x => x.GetRoomName().Equals(roomName));
             room.RemoveFromRoom(username);
         }
 
@@ -92,14 +113,14 @@ namespace ChatServer
         }
         public List<string> GetChatRoomNamesList()
         {
-            return roomDB.GetRoomList().Select(room => room.GetRoomName()).ToList();
+            return roomDB.GetPublicRoomList().Select(room => room.GetRoomName()).ToList();
         }
 
         public void SendMessage(ChatMessage message, string roomName, string username)
         {
             ChatRoom tempRoom = null;
 
-            foreach (ChatRoom room in roomDB.GetRoomList())
+            foreach (ChatRoom room in roomDB.GetPublicRoomList())
             {
                 if (room.GetRoomName() == roomName)
                 {
@@ -138,9 +159,65 @@ namespace ChatServer
             }
         }
 
-        public ChatRoom FindChatRoom(string roomName)
+        public void SendPrivateMessage(ChatMessage message, string roomName, string username)
         {
-            foreach (ChatRoom room in roomDB.GetRoomList())
+            ChatRoom tempRoom = null;
+
+            foreach (ChatRoom room in roomDB.GetPrivateRoomList())
+            {
+                if (room.GetRoomName() == roomName)
+                {
+                    tempRoom = room;
+                    break; // No need to continue searching once the room is found
+                }
+            }
+
+            if (tempRoom != null)
+            {
+                // Create a chat message and add it to the room
+                if (message.MessageType == MessageType.Text)
+                {
+                    var chatMessage = new ChatMessage
+                    {
+                        MessageText = username + ": " + message.MessageText,
+                        MessageType = message.MessageType
+                    };
+                    tempRoom.AddMessage(chatMessage);
+                }
+                else if (message.MessageType == MessageType.File)
+                {
+                    var chatMessage = new ChatMessage
+                    {
+                        MessageText = username + " uploaded file:",
+                        MessageType = MessageType.Text
+                    };
+                    var fileMessage = new ChatMessage
+                    {
+                        MessageText = message.MessageText,
+                        MessageType = message.MessageType
+                    };
+                    tempRoom.AddMessage(chatMessage);
+                    tempRoom.AddMessage(fileMessage);
+                }
+            }
+        }
+
+        public ChatRoom FindPublicChatRoom(string roomName)
+        {
+            foreach (ChatRoom room in roomDB.GetPublicRoomList())
+            {
+                if (room.GetRoomName().Equals(roomName))
+                {
+                    return room;
+                }
+            }
+            return null;
+
+        }
+
+        public ChatRoom FindPrivateChatRoom(string roomName)
+        {
+            foreach (ChatRoom room in roomDB.GetPrivateRoomList())
             {
                 if (room.GetRoomName().Equals(roomName))
                 {
@@ -155,7 +232,7 @@ namespace ChatServer
         {
             userDB.RemoveUserByUsername(username);
             Console.WriteLine("User "+ username + " logged out.");
-            foreach (ChatRoom room in roomDB.GetRoomList())
+            foreach (ChatRoom room in roomDB.GetPublicRoomList())
             {
                 foreach (string user in room.GetUsers())
                 {
@@ -169,7 +246,7 @@ namespace ChatServer
 
         public List<ChatMessage> GetChatRoomMessage(string roomName)
         {
-            return roomDB.GetMessages(roomName);
+            return roomDB.GetPublicMessages(roomName);
         }
     }
 }

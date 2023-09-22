@@ -9,12 +9,14 @@ namespace DatabaseLib
 {
     public class ChatRoomDatabase
     {
-        List<ChatRoom> roomsList;
+        private List<ChatRoom> public_roomsList;
+        private List<ChatRoom> private_roomsList;
         private static ChatRoomDatabase instance;
 
         private ChatRoomDatabase()
         {
-            roomsList = new List<ChatRoom>();
+            public_roomsList = new List<ChatRoom>();
+            private_roomsList = new List<ChatRoom>();
         }
 
         public static ChatRoomDatabase GetInstance()
@@ -29,13 +31,21 @@ namespace DatabaseLib
         public void AddChatRoom(String roomName, RoomType roomType)
         {
             ChatRoom room = new ChatRoom(roomName, roomType);
-            roomsList.Add(room);
+            if(roomType == RoomType.Public)
+            {
+                public_roomsList.Add(room);
+            }
+            else if(roomType == RoomType.Private)
+            {
+                private_roomsList.Add(room);
+            }
+            
         }
 
 
-        public ChatRoom GetChatRoomByName(string name)
+        public ChatRoom GetPublicChatRoomByName(string name)
         {
-            foreach (ChatRoom room in roomsList)
+            foreach (ChatRoom room in public_roomsList)
             {
                 if (room.GetRoomName().Equals(name))
                 {
@@ -45,21 +55,53 @@ namespace DatabaseLib
             return null;
         }
 
-        public Boolean CheckChatRoom(string name)
+        public ChatRoom GetPrivateChatRoomByName(string name)
+        {
+            foreach (ChatRoom room in private_roomsList)
+            {
+                if (room.GetRoomName().Equals(name))
+                {
+                    return room;
+                }
+            }
+            return null;
+        }
+
+        public Boolean CheckPublicChatRoom(string name)
         {
             Boolean found = false;
-            if (roomsList.Contains(GetChatRoomByName(name)))
+            if (public_roomsList.Contains(GetPublicChatRoomByName(name)))
             { found = true; }
             return found;
         }
-        public List<ChatRoom> GetRoomList()
+
+        public Boolean CheckPrivateChatRoom(string name)
         {
-            return roomsList;
+            Boolean found = false;
+            if (private_roomsList.Contains(GetPrivateChatRoomByName(name)))
+            { found = true; }
+            return found;
         }
 
-        public List<ChatMessage> GetMessages(string chatRoom)
+        public List<ChatRoom> GetPublicRoomList()
         {
-            ChatRoom room = GetChatRoomByName(chatRoom);
+            return public_roomsList;
+        }
+
+        public List<ChatRoom> GetPrivateRoomList()
+        {
+            return private_roomsList;
+        }
+
+        public List<ChatMessage> GetPublicMessages(string chatRoom)
+        {
+            ChatRoom room = GetPublicChatRoomByName(chatRoom);
+            return room.GetMessage();
+        }
+
+        public List<ChatMessage> GetPrivateMessages(string chatRoom)
+        {
+            ChatRoom room = GetPrivateChatRoomByName(chatRoom);
             return room.GetMessage();
         }
     }
