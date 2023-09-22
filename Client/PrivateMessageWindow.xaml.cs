@@ -10,26 +10,18 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Client
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for PrivateMessage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class PrivateMessage : Window
     {
-        public MainWindow()
+        public PrivateMessage()
         {
             InitializeComponent();
-        }
-
-        private void BtnUser1_Click(object sender, RoutedEventArgs e)
-        {
-            LoginWindow newWindow1 = new LoginWindow();
-            newWindow1.Show();
-            this.Close();
         }
     }
 }

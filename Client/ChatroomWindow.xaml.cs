@@ -21,14 +21,14 @@ namespace Client
     /// <summary>
     /// Interaction logic for Window3.xaml
     /// </summary>
-    public partial class Window3 : Window
+    public partial class ChatroomWindow : Window
     {
         ChatServerInterface foob;
         ChatRoom chatRoom;
         private String username;
         private String roomName;
         private String uploadedFilePath;
-        public Window3(ChatServerInterface foobFromWindow1, String pUsername, String pRoomName)
+        public ChatroomWindow(ChatServerInterface foobFromWindow1, String pUsername, String pRoomName)
         {
             InitializeComponent();
             foob = foobFromWindow1;
@@ -63,7 +63,7 @@ namespace Client
         private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
         {
             foob.leaveChatRoom(roomName, username);
-            Window2 window2 = new Window2(foob, username);
+            RoomSelectWindow window2 = new RoomSelectWindow(foob, username);
             window2.Show();
             this.Close();
          }
@@ -105,7 +105,7 @@ namespace Client
             if (chatMessage.MessageType == MessageType.File)
             {
                 // Handle opening the file here
-                Window4 fileContentWindow = new Window4(chatMessage.MessageText);
+                FileDisplayWindow fileContentWindow = new FileDisplayWindow(chatMessage.MessageText);
                 fileContentWindow.ShowDialog();
             }
         }

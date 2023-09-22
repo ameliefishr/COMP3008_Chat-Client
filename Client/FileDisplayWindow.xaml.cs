@@ -18,9 +18,9 @@ namespace Client
     /// <summary>
     /// Interaction logic for Window4.xaml
     /// </summary>
-    public partial class Window4 : Window
+    public partial class FileDisplayWindow : Window
     {
-        public Window4(string filePath)
+        public FileDisplayWindow(string filePath)
         {
             InitializeComponent();
 

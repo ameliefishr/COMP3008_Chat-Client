@@ -19,11 +19,11 @@ namespace Client
     /// <summary>
     /// Interaction logic for Window2.xaml
     /// </summary>
-    public partial class Window2 : Window
+    public partial class RoomSelectWindow : Window
     {
         private ChatServerInterface foob;
         private String username;
-        public Window2(ChatServerInterface foobFromWindow1, String pUsername)
+        public RoomSelectWindow(ChatServerInterface foobFromWindow1, String pUsername)
         {
             InitializeComponent();
             username = pUsername;
@@ -39,7 +39,7 @@ namespace Client
             Button joinButton = (Button)sender;
             string selectedChatRoomName = joinButton.Tag as string;
             foob.joinChatRoom(selectedChatRoomName, username);
-            Window3 window3 = new Window3(foob, username, selectedChatRoomName);
+            ChatroomWindow window3 = new ChatroomWindow(foob, username, selectedChatRoomName);
             window3.Show();
             this.Close();
         }
