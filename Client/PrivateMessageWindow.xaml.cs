@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,25 +18,22 @@ using System.Windows.Shapes;
 namespace Client
 {
     /// <summary>
-    /// Interaction logic for Window3.xaml
+    /// Interaction logic for PrivateMessageWindow.xaml
     /// </summary>
-    public partial class ChatroomWindow : Window
+    public partial class PrivateMessageWindow : Window
     {
         ChatServerInterface foob;
         ChatRoom chatRoom;
-        private String username;
-        private String roomName;
+        private String sender;
+        private String recipient;
         private String uploadedFilePath;
-        public ChatroomWindow(ChatServerInterface foobFromWindow1, String pUsername, String pRoomName)
+        public PrivateMessageWindow(ChatServerInterface foobFromWindow1, String pSender, String pRecipient)
         {
             InitializeComponent();
             foob = foobFromWindow1;
-            username = pUsername;
-            roomName = pRoomName;
-            ChatRoomNameTextBlock.Text=(roomName);
-
-            List<string> users = foob.FindChatRoom(roomName).GetUsers();
-            userListView.ItemsSource = users;
+            sender = pSender;
+            recipient = pRecipient;
+            ChatRoomNameTextBlock.Text = (recipient);
 
         }
 
@@ -51,19 +47,19 @@ namespace Client
                 MessageType = MessageType.Text
             };
 
-            foob.SendMessage(chatMessage, roomName, username);
-            ChatRoom room = foob.FindChatRoom(roomName);
-            List<ChatMessage> msgs = room.GetMessage();
+            //foob.SendMessage(chatMessage, roomName, username);
+            //ChatRoom room = foob.FindChatRoom(roomName);
+            //List<ChatMessage> msgs = room.GetMessage();
             // MessageBox.Show(message);
-            chatRoomListView.ItemsSource = msgs;
+            //chatRoomListView.ItemsSource = msgs;
         }
         private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
         {
-            foob.leaveChatRoom(roomName, username);
-            RoomSelectWindow window2 = new RoomSelectWindow(foob, username);
-            window2.Show();
+            //foob.leaveChatRoom(roomName, username);
+           // RoomSelectWindow window2 = new RoomSelectWindow(foob, username);
+            //window2.Show();
             this.Close();
-         }
+        }
 
         private void UploadFileButton_Click(object sender, RoutedEventArgs e)
         {
@@ -85,11 +81,11 @@ namespace Client
                     MessageType = MessageType.File
                 };
                 uploadedFilePath = filepath;
-                foob.SendMessage(chatMessage, roomName, username);
-                ChatRoom room = foob.FindChatRoom(roomName);
-                List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
+               // foob.SendMessage(chatMessage, roomName, username);
+               // ChatRoom room = foob.FindChatRoom(roomName);
+                //List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
 
-                chatRoomListView.ItemsSource = messages;
+                //chatRoomListView.ItemsSource = messages;
             }
         }
 
@@ -105,23 +101,6 @@ namespace Client
                 FileDisplayWindow fileContentWindow = new FileDisplayWindow(chatMessage.MessageText);
                 fileContentWindow.ShowDialog();
             }
-        }
-        private void ChatRefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<ChatMessage> chat = foob.GetChatRoomMessage(roomName);
-            chatRoomListView.ItemsSource = chat;
-        }
-
-        private void UserRefreshButton_Click(object sender, RoutedEventArgs e)
-        {
-            List<string> users = foob.FindChatRoom(roomName).GetUsers();
-            userListView.ItemsSource = users;
-        }
-
-        private void PrivateMessageButton_Click(object sender, RoutedEventArgs e)
-        {
-            PrivateMessageWindow privateMessageWindow = new PrivateMessageWindow(foob, username, "recipient");
-            privateMessageWindow.Show();
         }
     }
 }
