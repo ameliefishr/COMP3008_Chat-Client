@@ -14,6 +14,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Threading;
 
 namespace Client
 {
@@ -26,6 +27,7 @@ namespace Client
         ChatRoom chatRoom;
         private String sender;
         private String recipient;
+        private CancellationTokenSource cancellationTokenSource;
         public PrivateMessageWindow(ChatServerInterface foobFromWindow1, String pSender, String pRecipient)
         {
             InitializeComponent();
@@ -94,6 +96,13 @@ namespace Client
                 // Handle opening the file here
                 FileDisplayWindow fileContentWindow = new FileDisplayWindow(chatMessage.MessageText);
                 fileContentWindow.ShowDialog();
+            }
+        }
+        private void PrivateMessageWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+        {
+            if (cancellationTokenSource != null && !cancellationTokenSource.Token.IsCancellationRequested)
+            {
+                cancellationTokenSource.Cancel();
             }
         }
     }
