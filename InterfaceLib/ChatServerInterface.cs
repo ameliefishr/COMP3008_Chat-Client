@@ -15,15 +15,20 @@ namespace InterfaceLib
 
         [OperationContract]
         void joinChatRoom(string roomName, string username);
+        [OperationContract]
+        void joinPrivateChatRoom(string senderName, string recipient);
 
         [OperationContract]
         void leaveChatRoom(string roomName, string username);
 
         [OperationContract]
+        void leavePrivateChatRoom(string senderName, string recipient, string username);
+
+        [OperationContract]
         bool createPublicChatRoom(string roomName);
 
         [OperationContract]
-        bool createPrivateChatRoom(string roomName);
+        bool createPrivateChatRoom(string sender, string recipient);
 
         [OperationContract]
         List<string> GetChatRoomNamesList();
@@ -41,7 +46,7 @@ namespace InterfaceLib
         ChatRoom FindPublicChatRoom(string roomName);
 
         [OperationContract]
-        ChatRoom FindPrivateChatRoom(string roomName);
+        ChatRoom FindPrivateChatRoom(string sender, string recipient);
 
         [OperationContract]
         void logout(string username);

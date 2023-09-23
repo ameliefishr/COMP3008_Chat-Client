@@ -25,45 +25,54 @@ namespace Client
     {
         ChatServerInterface foob;
         ChatRoom chatRoom;
-        private String sender;
-        private String recipient;
+        private string senderName;
+        private string recipient;
+        private System.Threading.Timer messageUpdateTimer;
+        private TimeSpan updateInterval = TimeSpan.FromSeconds(0.5);
         private CancellationTokenSource cancellationTokenSource;
-        public PrivateMessageWindow(ChatServerInterface foobFromWindow1, String pSender, String pRecipient)
+        public PrivateMessageWindow(ChatServerInterface foobFromWindow1, string pSenderName, string pRecipient)
         {
             InitializeComponent();
             foob = foobFromWindow1;
-            sender = pSender;
+            senderName = pSenderName;
             recipient = pRecipient;
             ChatRoomNameTextBlock.Text = (recipient);
-            chatRoom = new ChatRoom(recipient, ChatRoom.RoomType.Private);
-            foob.createPrivateChatRoom(recipient);
+            chatRoom = foob.FindPrivateChatRoom(senderName, recipient);
+            if (chatRoom == null)
+            {
+                foob.createPrivateChatRoom(senderName, recipient);
+            }
+            foob.joinPrivateChatRoom(senderName, recipient);
+            messageUpdateTimer = new System.Threading.Timer(UpdateMessages, null, TimeSpan.Zero, updateInterval);
+
         }
 
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             string message = MessageTextBox.Text;
+            
             var chatMessage = new ChatMessage
             {
                 MessageText = message,
                 MessageType = MessageType.Text
             };
 
-            ChatRoom room = foob.FindPrivateChatRoom(recipient);
-            foob.SendPrivateMessage(chatMessage, recipient, this.sender);
+            ChatRoom room = foob.FindPrivateChatRoom(senderName,recipient);
+            foob.SendPrivateMessage(chatMessage, senderName, recipient);
             List<ChatMessage> msgs = room.GetMessage();
 
             chatRoomListView.ItemsSource = msgs;
         }
         private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
         {
-            foob.leaveChatRoom(chatRoom.GetRoomName(), this.sender);
+            foob.leavePrivateChatRoom( senderName, recipient, senderName);
             this.Close();
         }
 
         private void UploadFileButton_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog openFile = new Microsoft.Win32.OpenFileDialog();
-
+            string sSender = sender.ToString();
             bool? response = openFile.ShowDialog();
 
             if (response == true)
@@ -79,8 +88,8 @@ namespace Client
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
-                ChatRoom room = foob.FindPrivateChatRoom(this.recipient);
-                foob.SendPrivateMessage(chatMessage, this.recipient, this.sender);
+                ChatRoom room = foob.FindPrivateChatRoom(senderName, recipient);
+                foob.SendPrivateMessage(chatMessage, senderName, recipient);
                 List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
 
                 chatRoomListView.ItemsSource = messages;
@@ -106,6 +115,12 @@ namespace Client
             {
                 cancellationTokenSource.Cancel();
             }
+        }
+        private async void UpdateMessages(object state)
+        {
+            List<ChatMessage> chat = await Task.Run(() => foob.FindPrivateChatRoom(senderName, recipient).GetMessage());
+
+            Dispatcher.Invoke(() => chatRoomListView.ItemsSource = chat);
         }
     }
 }
