@@ -274,18 +274,29 @@ namespace ChatServer
         public void logout(string username)
         {
             userDB.RemoveUserByUsername(username);
-            Console.WriteLine("User "+ username + " logged out.");
+            Console.WriteLine("User " + username + " logged out.");
+
             foreach (ChatRoom room in roomDB.GetPublicRoomList())
             {
-                foreach (string user in room.GetUsers())
+                List<string> usersToRemove = room.GetUsers().Where(user => user.Equals(username)).ToList();
+
+                foreach (string user in usersToRemove)
                 {
-                    if (user.Equals(username))
-                    {
-                        room.RemoveFromRoom(username);
-                    }
+                    room.RemoveFromRoom(user);
+                }
+            }
+
+            foreach (ChatRoom room in roomDB.GetPrivateRoomList())
+            {
+                List<string> usersToRemove = room.GetUsers().Where(user => user.Equals(username)).ToList();
+
+                foreach (string user in usersToRemove)
+                {
+                    room.RemoveFromRoom(user);
                 }
             }
         }
+
 
         public List<ChatMessage> GetChatRoomMessage(string roomName)
         {
