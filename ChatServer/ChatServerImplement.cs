@@ -8,6 +8,7 @@ using DatabaseLib;
 using InterfaceLib;
 using System.Security.Cryptography;
 using System.Text;
+using System.Windows;
 
 namespace ChatServer
 {
@@ -175,12 +176,19 @@ namespace ChatServer
                 // Create a chat message and add it to the room
                 if (message.MessageType == MessageType.Text)
                 {
-                    var chatMessage = new ChatMessage
+                    if ((message.MessageText).Length > 280)
                     {
-                        MessageText = username + ": " + message.MessageText,
-                        MessageType = message.MessageType
-                    };
-                    tempRoom.AddMessage(chatMessage);
+                        MessageBox.Show("Message cannot exceed 280 characters");
+                    }
+                    else
+                    {
+                        var chatMessage = new ChatMessage
+                        {
+                            MessageText = username + ": " + message.MessageText,
+                            MessageType = message.MessageType
+                        };
+                        tempRoom.AddMessage(chatMessage);
+                    }
                 }
                 else if (message.MessageType == MessageType.File)
                 {
@@ -219,12 +227,19 @@ namespace ChatServer
                 // Create a chat message and add it to the room
                 if (message.MessageType == MessageType.Text)
                 {
-                    var chatMessage = new ChatMessage
+                    if((message.MessageText).Length > 280)
                     {
-                        MessageText = senderName + ": " + message.MessageText,
-                        MessageType = message.MessageType
-                    };
-                    tempRoom.AddMessage(chatMessage);
+                        MessageBox.Show("Message cannot exceed 280 characters");
+                    }
+                    else
+                    {
+                        var chatMessage = new ChatMessage
+                        {
+                            MessageText = senderName + ": " + message.MessageText,
+                            MessageType = message.MessageType
+                        };
+                        tempRoom.AddMessage(chatMessage);
+                    }
                 }
                 else if (message.MessageType == MessageType.File)
                 {
