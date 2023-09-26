@@ -1,17 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Client
 {
@@ -24,29 +15,28 @@ namespace Client
         {
             InitializeComponent();
 
-            // Check the file type based on its extension
             string fileExtension = null;
 
+            // check if file exsists, if it does then get the file exension
             if (File.Exists(filePath))
             { 
                 fileExtension = System.IO.Path.GetExtension(filePath).ToLower();
-                // Rest of your code to handle the file extension
             }
             else
             {
                 MessageBox.Show("The selected file does not exist.");
             }
 
+            // if it's a text file, display text
             if (IsTextFile(fileExtension))
             {
-                // Display text content
                 string fileContent = File.ReadAllText(filePath);
                 fileTextBlock.Text = fileContent;
                 fileTextBlock.Visibility = Visibility.Visible;
             }
             else if (IsImageFile(fileExtension))
             {
-                // Display image
+                // if it's an image file, display image
                 try
                 {
                     BitmapImage bitmapImage = new BitmapImage(new Uri(filePath));
@@ -58,23 +48,27 @@ namespace Client
                     MessageBox.Show($"Error loading image: {ex.Message}");
                 }
             }
+
+            // if it's not an accepted file type
             else
             {
                 MessageBox.Show("Unsupported file type.");
             }
         }
 
+        // boolean to check if it's a valid text file
         private bool IsTextFile(string fileExtension)
         {
-            // Define a list of text file extensions you want to support
+            // allowed text file types
             string[] textExtensions = { ".txt", ".csv", ".xml", ".html", ".cs", ".cpp", ".c", ".java", ".json" };
 
             return textExtensions.Contains(fileExtension);
         }
 
+        // boolean to check if it's a valid image file
         private bool IsImageFile(string fileExtension)
         {
-            // Define a list of image file extensions you want to support
+            // allowed image file types
             string[] imageExtensions = { ".jpg", ".jpeg", ".png", ".gif", ".bmp" };
 
             return imageExtensions.Contains(fileExtension);

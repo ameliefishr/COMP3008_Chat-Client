@@ -1,18 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using InterfaceLib;
-using DatabaseLib;
 
 namespace Client
 {
@@ -35,6 +26,7 @@ namespace Client
             chatRoomListUpdateTimer = new System.Threading.Timer(UpdateChatroomList, null, TimeSpan.Zero, updateInterval);
         }
 
+        // when a user presses the join button, add them to the selected room and close the room select window
         private void JoinButton_Click(object sender, RoutedEventArgs e)
         {
             Button joinButton = (Button)sender;
@@ -45,14 +37,23 @@ namespace Client
             openWindows.Add(window3);
             this.Close();
         }
+
+        // when a user presses the create chat room button, create a chat room with the entered name
         private void CreateChatRoomButton_Click(object sender, RoutedEventArgs e)
         {
-            foob.createPublicChatRoom(createChatRoomTextBox.Text);
-
-            List<string> chatrooms = foob.GetChatRoomNamesList();
-            chatRoomListView.ItemsSource = chatrooms;
+            if (createChatRoomTextBox.Text == null || createChatRoomTextBox.Text.Equals(""))
+            {
+                MessageBox.Show("Chat room name cannot be empty");
+            }
+            else
+            {
+                foob.createPublicChatRoom(createChatRoomTextBox.Text);
+                List<string> chatrooms = foob.GetChatRoomNamesList();
+                chatRoomListView.ItemsSource = chatrooms;
+            }
         }
 
+        // when a user presses the logout button, log them out and close all of the windows that user has open
         private void LogoutButton_Click(object sender, RoutedEventArgs e)
         {
             foob.logout(username);
@@ -65,6 +66,7 @@ namespace Client
             Close();
         }
 
+        // update list of chat room asynchronously
         private async void UpdateChatroomList(object state)
         {
             List<string> chatrooms = await Task.Run(() => foob.GetChatRoomNamesList());

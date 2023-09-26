@@ -1,18 +1,7 @@
 ﻿using InterfaceLib;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Client
 {
@@ -37,6 +26,7 @@ namespace Client
       
         }
 
+        // when user click's login button, validate username before adding them to user database
         private void LoginBtn_Click(object sender, RoutedEventArgs e) 
         {
             if (foob.login(UsernameTxt.Text))

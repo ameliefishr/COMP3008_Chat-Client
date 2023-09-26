@@ -2,20 +2,9 @@
 using InterfaceLib;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.ServiceModel.Channels;
-using System.ServiceModel.Security.Tokens;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace Client
 {
@@ -48,6 +37,7 @@ namespace Client
 
         }
 
+        // when user presses send button, send the message in the chat room and update the message list view
         private void SendButton_Click(object sender, RoutedEventArgs e)
         {
             string message = MessageTextBox.Text;
@@ -60,9 +50,10 @@ namespace Client
             ChatRoom room = foob.FindPublicChatRoom(roomName);
             foob.SendMessage(chatMessage, roomName, username);
             List<ChatMessage> msgs = room.GetMessage();
-            // MessageBox.Show(message);
             chatRoomListView.ItemsSource = msgs;
         }
+
+        // when user click's leave button, remove user from chat room and close the window and re-open chat room select window 
         private void LeaveRoomButton_Click(object sender, RoutedEventArgs e)
         {
             foob.leaveChatRoom(roomName, username);
@@ -73,6 +64,7 @@ namespace Client
             this.Close();
          }
 
+        // when user click's the upload file button, send selected file as a message text link
         private void UploadFileButton_Click(object sender, RoutedEventArgs e)
         {
             Microsoft.Win32.OpenFileDialog openFile = new Microsoft.Win32.OpenFileDialog();
@@ -83,39 +75,36 @@ namespace Client
             {
                 string filepath = openFile.FileName;
 
-                // Read the content of the selected file
-                string fileContent = File.ReadAllText(filepath);
-
-                // Create a file message
+                // create file message with filepath as message text
                 var chatMessage = new ChatMessage
                 {
                     MessageText = filepath,
                     MessageType = MessageType.File
                 };
                 
+                // send message and update message listview
                 foob.SendMessage(chatMessage, roomName, username);
                 ChatRoom room = foob.FindPublicChatRoom(roomName);
-                List<ChatMessage> messages = room.GetMessage(); // Update your ChatRoom class to return ChatMessage objects
+                List<ChatMessage> messages = room.GetMessage();
 
                 chatRoomListView.ItemsSource = messages;
             }
         }
 
+        // when user clicks on file message, display file contents in a new window
         private void FileMessage_Click(object sender, RoutedEventArgs e)
         {
-            // Handle the click event for file messages (e.g., open the file)
             var textBlock = (ListViewItem)sender;
-            var chatMessage = (ChatMessage)textBlock.DataContext; // Get the associated ChatMessage
+            var chatMessage = (ChatMessage)textBlock.DataContext;
 
             if (chatMessage.MessageType == MessageType.File)
             {
-                // Handle opening the file here
                 FileDisplayWindow fileContentWindow = new FileDisplayWindow(chatMessage.MessageText);
                 fileContentWindow.ShowDialog();
             }
         }
 
-
+        // aynchronously updates list of user's in chat room
         private async void UpdateUsersList(object state)
         {
             List<string> users = await Task.Run(() => foob.FindPublicChatRoom(roomName).GetUsers());
@@ -123,17 +112,19 @@ namespace Client
             Dispatcher.Invoke(() => userListView.ItemsSource = users);
         }
 
+        // asynchronously updates messages listview
         private async void UpdateMessages(object state)
         {
             List<ChatMessage> chat = await Task.Run(() => foob.GetChatRoomMessage(roomName));
 
             Dispatcher.Invoke(() => chatRoomListView.ItemsSource = chat);
         }
+
+        // when user presses private message button, open a private message with the selected recipient
         private void PrivateMessageButton_Click(object sender, RoutedEventArgs e)
         {
             Button pmButton = (Button)sender;
             string recipient = pmButton.Tag as string;
-            //change recipient later to the selected user's username, just hardcoded for now
             PrivateMessageWindow privateMessageWindow = new PrivateMessageWindow(foob, username, recipient); 
             privateMessageWindow.Show();
             RoomSelectWindow.openWindows.Add(privateMessageWindow);

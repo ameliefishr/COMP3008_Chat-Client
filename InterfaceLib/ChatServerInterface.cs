@@ -1,11 +1,10 @@
 ﻿using DatabaseLib;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
 
 namespace InterfaceLib
 {
+    // interface for chat server
     [ServiceContract]
     public interface ChatServerInterface
     {
