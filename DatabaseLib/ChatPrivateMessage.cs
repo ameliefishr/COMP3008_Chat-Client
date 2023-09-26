@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DatabaseLib
 {
+    // class for a private chat message object
+    // unlike normal chat message it keeps track of the sender and receiver
     public class ChatPrivateMessage
     {
         public string Sender { get; }

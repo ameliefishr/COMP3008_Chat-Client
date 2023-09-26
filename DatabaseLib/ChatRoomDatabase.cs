@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using static DatabaseLib.ChatRoom;
 
 namespace DatabaseLib
 {
     public class ChatRoomDatabase
     {
+        // database to store all of our chat rooms
+        // different lists for public/private rooms to prevent mixing them up
         private List<ChatRoom> public_roomsList;
         private List<ChatRoom> private_roomsList;
         private static ChatRoomDatabase instance;
@@ -19,6 +18,7 @@ namespace DatabaseLib
             private_roomsList = new List<ChatRoom>();
         }
 
+        // get the full database
         public static ChatRoomDatabase GetInstance()
         {
             if (instance == null)
@@ -28,6 +28,7 @@ namespace DatabaseLib
             return instance;
         }
 
+        // add's a chat room to the database
         public void AddChatRoom(String roomName, RoomType roomType)
         {
             ChatRoom room = new ChatRoom(roomName, roomType);
@@ -42,7 +43,7 @@ namespace DatabaseLib
             
         }
 
-
+        // finds a public chat room by it's name
         public ChatRoom GetPublicChatRoomByName(string name)
         {
             foreach (ChatRoom room in public_roomsList)
@@ -55,6 +56,7 @@ namespace DatabaseLib
             return null;
         }
 
+        // finds a private chat room by it's name
         public ChatRoom GetPrivateChatRoomByName(string name)
         {
             foreach (ChatRoom room in private_roomsList)
@@ -67,6 +69,7 @@ namespace DatabaseLib
             return null;
         }
 
+        // checks if a public chat room exists in the database
         public Boolean CheckPublicChatRoom(string name)
         {
             Boolean found = false;
@@ -75,6 +78,7 @@ namespace DatabaseLib
             return found;
         }
 
+        // checks if a private chat room exists in the database
         public Boolean CheckPrivateChatRoom(string name)
         {
             Boolean found = false;
@@ -83,22 +87,26 @@ namespace DatabaseLib
             return found;
         }
 
+        // gets full list of available public chat rooms
         public List<ChatRoom> GetPublicRoomList()
         {
             return public_roomsList;
         }
 
+        // gets full list of private chat rooms
         public List<ChatRoom> GetPrivateRoomList()
         {
             return private_roomsList;
         }
 
+        // gets all the messages within a public chat room
         public List<ChatMessage> GetPublicMessages(string chatRoom)
         {
             ChatRoom room = GetPublicChatRoomByName(chatRoom);
             return room.GetMessage();
         }
 
+        // gets all the messages within a private chat room
         public List<ChatMessage> GetPrivateMessages(string chatRoom)
         {
             ChatRoom room = GetPrivateChatRoomByName(chatRoom);

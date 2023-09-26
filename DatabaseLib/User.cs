@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Serialization;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Runtime.Serialization;
 
 namespace DatabaseLib
 {
+    // user class to store user details
     [DataContract]
     public class User
     {
@@ -17,11 +13,13 @@ namespace DatabaseLib
             username = pUsername;
         }
 
+        // sets user's username
         public void setUsername(string pUsername)
         {
             username = pUsername;
         }
 
+        // gets user's username
         public string getUsername()
         {
             return username;

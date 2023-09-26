@@ -1,19 +1,18 @@
 ﻿using InterfaceLib;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace ChatServer
 {
     internal class Program
     {
+        // program for our chat server
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to the Chat Server");
 
+
+            //initialising server
             ServiceHost host;
             NetTcpBinding tcp = new NetTcpBinding();
 

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace DatabaseLib
 {
+    // database to store all of the private chat messages
     public class ChatMessageDatabase
     {
         private List<ChatPrivateMessage> msgs;
@@ -16,6 +12,7 @@ namespace DatabaseLib
             msgs = new List<ChatPrivateMessage>();
         }
 
+        // returns the full database
         public static ChatMessageDatabase GetInstance()
         {
             if(instance == null)
@@ -25,12 +22,14 @@ namespace DatabaseLib
             return instance;
         }
 
+        // add's a private message to the database
         public void addPrivateMessage(string sender, string recipient, ChatMessage message)
         {
             ChatPrivateMessage chat = new ChatPrivateMessage(sender, recipient, message);
             msgs.Add(chat);
         }
 
+        // gets a private message from the database
         public ChatPrivateMessage getPrivateMessage(string sender, string recipient, ChatMessage message)
         {
             foreach(ChatPrivateMessage chat in msgs)
